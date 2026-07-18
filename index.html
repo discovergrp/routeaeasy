@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Route A Easy — Europe Travel Sales Funnel | Discover Group</title>
+<meta name="description" content="Route A Easy: 10 Days / 9 Nights European Tour — France, Switzerland, Italy, Vatican. Starting at ₱125,000/head with flexible payment options.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #0a1e5e;
+  --primary-dark: #061442;
+  --primary-light: #1a3a8b;
+  --accent: #D4AF37;
+  --accent-light: #e8c84a;
+  --accent-gradient: linear-gradient(135deg, #fde68a, #fbbf24, #d97706);
+  --bg: #0a1e5e;
+  --card: #ffffff;
+  --text-light: #ffffff;
+  --text-dark: #1a1a2e;
+  --muted: rgba(255,255,255,0.7);
+  --border: rgba(255,255,255,0.15);
+  --radius: 0.75rem;
+  --shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; background: var(--primary); color: var(--text-light); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+h1, h2, h3, h4, h5, h6 { font-family: 'Playfair Display', serif; }
+.text-gradient-gold { background: linear-gradient(135deg, #fde68a, #fbbf24, #d97706); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+
+/* Header */
+.header { position: sticky; top: 0; z-index: 100; background: var(--primary-dark); border-bottom: 1px solid var(--border); padding: 0.6rem 1.5rem; backdrop-filter: blur(10px); }
+.header-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+.header-logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+.header-logo img { height: 36px; width: 36px; border-radius: 4px; object-fit: cover; }
+.header-nav { display: none; gap: 2rem; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
+.header-nav a { color: white; text-decoration: none; transition: color 0.2s; }
+.header-nav a:hover { color: var(--accent); }
+@media(min-width:768px) { .header-nav { display: flex; } }
+.btn { display: inline-flex; align-items: center; justify-content: center; padding: 0.6rem 1.5rem; border-radius: var(--radius); font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; border: none; text-decoration: none; }
+.btn:active { transform: scale(0.97); }
+.btn-accent { background: var(--accent); color: var(--primary-dark); font-weight: 800; }
+.btn-accent:hover { background: var(--accent-light); }
+.btn-outline { background: transparent; color: white; border: 2px solid white; }
+.btn-outline:hover { background: white; color: var(--primary); }
+
+/* Hero */
+.hero { text-align: center; padding: 5rem 1.5rem 3rem; background: var(--primary); }
+.hero h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 400; margin-bottom: 0.5rem; line-height: 1.1; }
+.hero h1 .gold { font-style: italic; color: transparent; background: var(--accent-gradient); -webkit-background-clip: text; background-clip: text; }
+.hero .subtitle { font-size: 1rem; color: var(--muted); margin-top: 1rem; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 500; }
+.hero .divider { width: 60px; height: 3px; background: var(--accent); margin: 1.5rem auto; border-radius: 2px; }
+
+/* Intro */
+.intro { background: var(--primary); padding: 2rem 1.5rem 3rem; text-align: center; }
+.intro-card { background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 1rem; padding: 2.5rem 2rem; max-width: 800px; margin: 0 auto; }
+.intro-card h2 { font-size: 1.5rem; font-style: italic; margin-bottom: 1rem; }
+.intro-card h2 .gold { font-weight: 700; }
+.intro-card p { color: var(--muted); font-size: 0.95rem; line-height: 1.8; }
+
+/* Promo Banner */
+.promo-banner { background: linear-gradient(135deg, #1a3a8b, #0a1e5e); border: 2px solid var(--accent); border-radius: 1rem; padding: 2rem; text-align: center; max-width: 700px; margin: 2rem auto; }
+.promo-banner .promo-title { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
+.promo-banner .promo-highlight { font-size: 1.1rem; font-weight: 700; margin: 1rem 0; }
+.promo-banner .promo-highlight .gold { color: transparent; background: var(--accent-gradient); -webkit-background-clip: text; background-clip: text; font-weight: 800; }
+.promo-banner .promo-value { font-size: 0.9rem; color: var(--accent); font-weight: 600; }
+.promo-banner .promo-note { font-size: 0.8rem; color: var(--muted); font-style: italic; margin-top: 0.5rem; }
+
+/* Stats Row */
+.stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; max-width: 800px; margin: 2rem auto; }
+.stat-card { background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1.5rem 1rem; text-align: center; }
+.stat-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+.stat-title { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.25rem; }
+.stat-sub { font-size: 0.75rem; color: var(--muted); }
+@media(max-width:640px) { .stats-row { grid-template-columns: 1fr; } }
+
+/* CTA Row */
+.cta-row { display: flex; gap: 1rem; justify-content: center; margin: 2rem 0 3rem; flex-wrap: wrap; }
+
+/* Features Section */
+.features { background: #f8faff; padding: 5rem 1.5rem; color: var(--text-dark); }
+.features .section-badge { display: inline-block; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; background: var(--primary); color: white; padding: 0.4rem 1rem; border-radius: 2rem; margin-bottom: 1rem; }
+.features h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); color: var(--primary); margin-bottom: 0.75rem; }
+.features .features-sub { color: #6b7a94; font-size: 0.95rem; max-width: 600px; margin: 0 auto 3rem; }
+.features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 1000px; margin: 0 auto; }
+.feature-card { background: white; border-radius: 1rem; padding: 2rem 1.5rem; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border: 1px solid #e8edf5; }
+.feature-card .icon-circle { width: 48px; height: 48px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; font-size: 1.2rem; }
+.feature-card h3 { font-size: 1.1rem; color: var(--primary); margin-bottom: 0.75rem; font-style: italic; }
+.feature-card p { font-size: 0.85rem; color: #6b7a94; line-height: 1.7; }
+.feature-card .highlight-box { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 0.5rem; padding: 0.75rem; margin-top: 1rem; text-align: center; }
+.feature-card .highlight-box .price { font-size: 1.5rem; font-weight: 900; color: #16a34a; font-family: 'Inter', sans-serif; }
+.feature-card .highlight-box .note { font-size: 0.75rem; color: #16a34a; }
+.feature-card .red-text { color: #dc2626; font-weight: 700; font-style: italic; }
+@media(max-width:768px) { .features-grid { grid-template-columns: 1fr; } }
+
+/* Itinerary Section */
+.itinerary { background: var(--primary); padding: 5rem 1.5rem; }
+.itinerary .section-badge { display: inline-block; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; background: rgba(255,255,255,0.1); color: white; padding: 0.4rem 1rem; border-radius: 2rem; margin-bottom: 1rem; }
+.itinerary h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); font-style: italic; margin-bottom: 0.75rem; }
+.itinerary .section-sub { color: var(--muted); font-size: 0.95rem; max-width: 600px; margin: 0 auto 2rem; }
+.itinerary-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; }
+@media(max-width:900px) { .itinerary-layout { grid-template-columns: 1fr; } }
+.map-panel { position: sticky; top: 80px; }
+.map-panel img { width: 100%; border-radius: 1rem; box-shadow: var(--shadow); }
+.city-tabs { display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap; }
+.city-tab { padding: 0.4rem 0.8rem; border-radius: 2rem; font-size: 0.75rem; font-weight: 700; background: rgba(255,255,255,0.1); border: 1px solid var(--border); color: white; cursor: pointer; transition: all 0.2s; }
+.city-tab.active, .city-tab:hover { background: var(--accent); color: var(--primary-dark); border-color: var(--accent); }
+.day-tabs { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.day-tab { padding: 0.4rem 0.7rem; border-radius: 0.5rem; font-size: 0.7rem; font-weight: 700; background: rgba(255,255,255,0.08); border: 1px solid var(--border); color: white; cursor: pointer; transition: all 0.2s; }
+.day-tab.active { background: var(--accent); color: var(--primary-dark); border-color: var(--accent); }
+.day-tab:hover { background: rgba(255,255,255,0.15); }
+.day-content { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 1rem; padding: 2rem; }
+.day-content .day-label { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; color: var(--accent); margin-bottom: 0.5rem; }
+.day-content h3 { font-size: 1.3rem; font-style: italic; margin-bottom: 1rem; }
+.day-content .description { font-size: 0.9rem; color: var(--muted); line-height: 1.8; margin-bottom: 1.5rem; }
+.day-content .description strong { color: white; font-weight: 700; }
+.day-content .collage-img { width: 100%; border-radius: 0.75rem; margin-bottom: 1.5rem; box-shadow: 0 4px 16px rgba(0,0,0,0.3); }
+.day-content .info-section { margin-bottom: 1rem; }
+.day-content .info-title { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; color: var(--accent); font-family: 'Inter', sans-serif; }
+.day-content .info-list { list-style: none; padding: 0; }
+.day-content .info-list li { font-size: 0.85rem; color: var(--muted); padding: 0.25rem 0; padding-left: 1rem; position: relative; }
+.day-content .info-list li::before { content: "•"; position: absolute; left: 0; color: var(--accent); font-weight: bold; }
+.day-content .meals-badge { display: inline-flex; align-items: center; gap: 0.3rem; background: rgba(34,197,94,0.15); color: #4ade80; font-size: 0.8rem; font-weight: 600; padding: 0.3rem 0.8rem; border-radius: 2rem; }
+.day-content .travel-time { font-size: 0.8rem; color: var(--muted); font-style: italic; margin-top: 0.5rem; }
+.day-content .optional-box { background: rgba(251,191,36,0.08); border: 1px solid rgba(251,191,36,0.3); border-radius: 0.5rem; padding: 0.75rem 1rem; margin-top: 1rem; }
+.day-content .optional-box .opt-title { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: var(--accent); margin-bottom: 0.3rem; font-family: 'Inter', sans-serif; }
+.day-content .optional-box p { font-size: 0.8rem; color: var(--muted); }
+.day-content .note-text { font-size: 0.75rem; color: rgba(255,255,255,0.5); font-style: italic; margin-top: 1rem; }
+
+/* Group Trip Banner */
+.group-banner { background: linear-gradient(135deg, #1a3a8b, #2a4a9b); border: 1px solid var(--border); border-radius: 1rem; padding: 2rem; text-align: center; margin-top: 3rem; }
+.group-banner h3 { font-size: 1.3rem; font-style: italic; margin-bottom: 0.5rem; }
+.group-banner p { font-size: 0.9rem; color: var(--muted); margin-bottom: 1rem; }
+
+/* Pricing Section */
+.pricing { background: #f8faff; padding: 5rem 1.5rem; color: var(--text-dark); }
+.pricing .section-badge { display: inline-block; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; background: var(--primary); color: white; padding: 0.4rem 1rem; border-radius: 2rem; margin-bottom: 1rem; }
+.pricing h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); color: var(--primary); margin-bottom: 0.75rem; }
+.pricing .section-sub { color: #6b7a94; font-size: 0.95rem; max-width: 600px; margin: 0 auto 3rem; }
+.pricing-table { width: 100%; border-collapse: collapse; background: white; border-radius: 1rem; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+.pricing-table th, .pricing-table td { padding: 1rem; text-align: center; font-size: 0.85rem; border-bottom: 1px solid #f1f5f9; }
+.pricing-table th { background: var(--primary); color: white; font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.pricing-table th.best-seller { background: var(--accent); color: var(--primary-dark); }
+.pricing-table td:first-child { text-align: left; font-weight: 600; color: var(--primary); }
+.pricing-table .check { color: #16a34a; font-weight: 700; }
+.pricing-table .discount { color: #dc2626; font-weight: 700; }
+.pricing-table .free { color: #16a34a; font-weight: 800; }
+
+/* Reservation Form */
+.reservation { background: var(--primary); padding: 5rem 1.5rem; }
+.reservation .section-badge { display: inline-block; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; background: rgba(255,255,255,0.1); color: white; padding: 0.4rem 1rem; border-radius: 2rem; margin-bottom: 1rem; }
+.reservation h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); font-style: italic; margin-bottom: 0.75rem; }
+.reservation .section-sub { color: var(--muted); font-size: 0.9rem; max-width: 600px; margin: 0 auto 2rem; }
+.form-card { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 1rem; padding: 2.5rem 2rem; max-width: 800px; margin: 0 auto; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+.form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+@media(max-width:640px) { .form-grid, .form-grid-2 { grid-template-columns: 1fr; } }
+.form-group { display: flex; flex-direction: column; gap: 0.3rem; }
+.form-group label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+.form-group input, .form-group select, .form-group textarea { background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 0.5rem; padding: 0.7rem 0.9rem; font-size: 0.9rem; color: white; font-family: 'Inter', sans-serif; transition: border-color 0.2s; }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--accent); }
+.form-group input::placeholder { color: rgba(255,255,255,0.3); }
+.form-group select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffffff' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.75rem center; }
+.form-group select option { background: var(--primary-dark); color: white; }
+
+/* Package & Payment Toggles */
+.toggle-section { margin-bottom: 2rem; }
+.toggle-label { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem; }
+.toggle-group { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+.toggle-group-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem; }
+@media(max-width:640px) { .toggle-group-3 { grid-template-columns: 1fr; } }
+.toggle-option { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1.25rem 1rem; text-align: center; cursor: pointer; transition: all 0.2s; }
+.toggle-option:hover { border-color: rgba(255,255,255,0.3); }
+.toggle-option.active { border-color: var(--accent); background: rgba(212,175,55,0.08); }
+.toggle-option .toggle-title { font-size: 0.85rem; font-weight: 700; margin-bottom: 0.2rem; }
+.toggle-option .toggle-sub { font-size: 0.7rem; color: var(--muted); }
+.toggle-option .toggle-price { font-size: 1.1rem; font-weight: 900; color: var(--accent); margin-top: 0.3rem; font-family: 'Inter', sans-serif; }
+
+/* Installment Preview */
+.installment-preview { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 2rem; }
+.installment-preview h4 { font-size: 0.9rem; font-style: italic; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+.installment-preview .note { font-size: 0.8rem; color: var(--muted); margin-bottom: 1rem; }
+.installment-row { display: flex; justify-content: space-between; padding: 0.3rem 0; font-size: 0.8rem; }
+.installment-row .date { color: var(--muted); }
+.installment-row .amount { font-weight: 600; }
+.installment-row.total { border-top: 1px solid var(--border); margin-top: 0.5rem; padding-top: 0.5rem; font-weight: 700; }
+.installment-more { font-size: 0.75rem; color: var(--muted); font-style: italic; padding: 0.3rem 0; }
+
+/* Pricing Summary */
+.pricing-summary { background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 2rem; }
+.pricing-summary h4 { font-size: 0.9rem; font-style: italic; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+.pricing-row { display: flex; justify-content: space-between; align-items: center; padding: 0.4rem 0; font-size: 0.85rem; }
+.pricing-row .label { color: var(--muted); }
+.pricing-row .label .badge { display: inline-block; font-size: 0.6rem; background: rgba(251,191,36,0.2); color: var(--accent); padding: 0.1rem 0.4rem; border-radius: 0.25rem; margin-left: 0.3rem; font-weight: 700; }
+.pricing-row .value { font-weight: 700; }
+.pricing-row .original { text-decoration: line-through; color: rgba(255,255,255,0.4); font-size: 0.8rem; margin-right: 0.5rem; }
+.pricing-row .discount-text { color: #4ade80; font-size: 0.75rem; margin-left: 0.5rem; }
+.pricing-row.total { border-top: 1px solid var(--border); margin-top: 0.5rem; padding-top: 0.75rem; font-size: 1rem; }
+.pricing-row.total .value { font-size: 1.2rem; color: var(--accent); }
+.savings-banner { background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3); border-radius: 0.5rem; padding: 0.6rem 1rem; margin-top: 0.75rem; font-size: 0.8rem; color: #4ade80; font-weight: 600; text-align: center; }
+.pricing-note { font-size: 0.7rem; color: rgba(255,255,255,0.4); margin-top: 0.75rem; font-style: italic; }
+
+/* Additional Travelers */
+.additional-travelers { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 2rem; }
+.additional-travelers h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+.additional-travelers .sub { font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem; }
+.traveler-block { border: 1px solid var(--border); border-radius: 0.5rem; padding: 1.25rem; margin-bottom: 1rem; }
+.traveler-block .traveler-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 0.75rem; }
+
+/* Submit */
+.submit-section { margin-top: 2rem; }
+.checkbox-row { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 1.5rem; }
+.checkbox-row input[type="checkbox"] { width: 18px; height: 18px; margin-top: 2px; accent-color: var(--accent); }
+.checkbox-row label { font-size: 0.8rem; color: var(--muted); line-height: 1.5; cursor: pointer; }
+.submit-btn { width: 100%; padding: 1rem; background: var(--accent); color: var(--primary-dark); font-size: 1rem; font-weight: 800; border: none; border-radius: 0.75rem; cursor: pointer; transition: all 0.2s; }
+.submit-btn:hover { background: var(--accent-light); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(212,175,55,0.4); }
+.submit-btn:active { transform: scale(0.98); }
+.submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+.secure-note { text-align: center; font-size: 0.8rem; color: var(--muted); margin-top: 1rem; }
+
+/* Footer */
+.footer { background: var(--primary-dark); border-top: 1px solid var(--border); padding: 3rem 1.5rem 2rem; }
+.footer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; max-width: 1200px; margin: 0 auto; }
+@media(max-width:768px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+@media(max-width:480px) { .footer-grid { grid-template-columns: 1fr; } }
+.footer h4 { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem; font-family: 'Inter', sans-serif; }
+.footer p, .footer a { font-size: 0.8rem; color: var(--muted); line-height: 1.8; text-decoration: none; }
+.footer a:hover { color: white; }
+.footer-bottom { text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border); font-size: 0.75rem; color: rgba(255,255,255,0.4); }
+
+/* Toast */
+.toast { position: fixed; top: 1rem; right: 1rem; background: #16a34a; color: white; padding: 1rem 1.5rem; border-radius: 0.75rem; font-size: 0.9rem; font-weight: 600; z-index: 9999; transform: translateX(120%); transition: transform 0.3s ease; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+.toast.show { transform: translateX(0); }
+.toast.error { background: #dc2626; }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="#" class="header-logo">
+      <img src="images/logo.jpg" alt="Discover Group">
+    </a>
+    <nav class="header-nav">
+      <a href="#itinerary">THE ITINERARY</a>
+      <a href="#pricing">PAYMENT SCHEMES</a>
+      <a href="#reservation-form">RESERVE SLOT</a>
+    </nav>
+    <a href="#reservation-form" class="btn btn-accent">Book Now</a>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <h1><span class="gold">Easy.</span><br>The Relaxed Way to Travel.</h1>
+  <div class="divider"></div>
+  <p class="subtitle">France | Switzerland | Italy | Vatican</p>
+</section>
+
+<!-- Intro -->
+<section class="intro">
+  <div class="intro-card">
+    <h2><span class="text-gradient-gold">4 Countries. 10 Days.</span> <span class="gold">Easy.</span></h2>
+    <p>Route A Easy is designed for travelers who want to see the highlights of Europe at their own pace. Get to see the best of France, Switzerland, Italy, and Vatican.</p>
+    <p style="margin-top:1rem;">Paris. Lucerne. Milan. Venice. Rome — carefully selected cities giving you a choice to explore on your own pace or join our optional tours.</p>
+  </div>
+
+  <!-- Promo Banner -->
+  <div class="promo-banner">
+    <div class="promo-title">Reserve your slot and get up to</div>
+    <div class="promo-highlight"><span class="gold">PHP 27,000 Total Worth of Savings</span></div>
+    <div class="promo-value">With our Full Cash Payment Freebies!</div>
+    <div class="promo-note">Limited slots only — secure yours now!</div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-icon">💰</div>
+      <div class="stat-title">PROMO ₱125,000</div>
+      <div class="stat-sub">Regular Rate: ₱160,000</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">✨</div>
+      <div class="stat-title">EASY PACKAGE PERKS</div>
+      <div class="stat-sub">Priority visa slots & dedicated manager</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">🎯</div>
+      <div class="stat-title">10 DAYS / 9 NIGHTS</div>
+      <div class="stat-sub">March 12-21, 2027</div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-row">
+    <a href="#pricing" class="btn btn-accent">Compare Payment Schemes →</a>
+    <a href="#reservation-form" class="btn btn-outline">Reserve Slot Today</a>
+  </div>
+</section>
+
+<!-- Features -->
+<section class="features" style="text-align:center;">
+  <span class="section-badge">The Easy Experience</span>
+  <h2>Why Route A Easy Stands Out</h2>
+  <p class="features-sub">Designed for travelers who want to see the highlights of each country with a choice to explore on their own pace.</p>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="icon-circle">⏱️</div>
+      <h3>Explore at Your Own Pace</h3>
+      <p>Get to see the highlights of each country with a choice to explore on your own pace. Perfect for independent travelers.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon-circle">🛡️</div>
+      <h3>Visa Protection & Priority</h3>
+      <p>Get priority slot on visa appointment. Plus, full refund policy in case of visa denial. Book with 100% confidence!</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon-circle">🤝</div>
+      <h3>Dedicated Support</h3>
+      <p>Dedicated Account Relations Manager to monitor your transactions after sales. Plus, rebooking fee for pre and post extension worth 30k per head is waived within 10 days before or after the tour (Subject to seat availability).</p>
+    </div>
+  </div>
+</section>
+
+<!-- Itinerary -->
+<section class="itinerary" id="itinerary" style="text-align:center;">
+  <span class="section-badge">The Daily Schedule</span>
+  <h2>Exciting Daily Itinerary</h2>
+  <p class="section-sub">See the exact cities you'll visit day-by-day. Highlights of Europe waiting for you.</p>
+
+  <div class="itinerary-layout" style="text-align:left;">
+    <!-- Map Panel -->
+    <div class="map-panel">
+      <img src="images/europe-map-promo.jpg" alt="Route A Easy Europe Map">
+      <div class="city-tabs">
+        <span class="city-tab active" data-city="paris">1 Paris</span>
+        <span class="city-tab" data-city="lucerne">2 Lucerne</span>
+        <span class="city-tab" data-city="milan">3 Milan</span>
+        <span class="city-tab" data-city="venice">4 Venice</span>
+        <span class="city-tab" data-city="rome">5 Rome</span>
+      </div>
+    </div>
+
+    <!-- Day Content Panel -->
+    <div class="day-panel">
+      <div class="day-tabs" id="day-tabs"></div>
+      <div class="day-content" id="day-content"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section class="pricing" id="pricing" style="text-align:center;">
+  <span class="section-badge">Flexible Payment Schemes</span>
+  <h2>Compare & Choose Your Ideal Plan</h2>
+  <p class="section-sub">We believe travel should be accessible. Choose from our tailored payment options.</p>
+
+  <table class="pricing-table">
+    <thead>
+      <tr>
+        <th style="text-align:left;">Your Path to Europe</th>
+        <th>Monthly Installment</th>
+        <th class="best-seller">⭐ BEST SELLER<br>₱50K Down Payment</th>
+        <th>Full Cash</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Total Package Cost</td><td>₱125,000</td><td>₱125,000</td><td>₱125,000</td></tr>
+      <tr><td>Visa Denial Protection</td><td class="check">✓ 100% Refund</td><td class="check">✓ 100% Refund</td><td class="check">✓ 100% Refund</td></tr>
+      <tr><td>Visa Processing & Appointment Fee</td><td>Standard Rate</td><td>Standard Rate</td><td class="discount">50% OFF</td></tr>
+      <tr><td>Permits, City Tax & Tippings</td><td>Standard Rate</td><td>Standard Rate</td><td class="discount">50% OFF</td></tr>
+      <tr><td>Travel Insurance</td><td>Standard Rate</td><td>Standard Rate</td><td class="discount">50% OFF</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- Reservation Form -->
+<section class="reservation" id="reservation-form" style="text-align:center;">
+  <span class="section-badge">Secure Your Slot Today</span>
+  <h2>Route A Easy Reservation Form</h2>
+  <p class="section-sub">Please provide your exact details as they appear on your passport. No payment is required immediately to place a temporary hold.</p>
+
+  <div class="form-card" style="text-align:left;">
+    <form id="reservation-form-el" onsubmit="return handleSubmit(event)">
+      <!-- Primary Traveler -->
+      <div class="form-grid">
+        <div class="form-group"><label>First Name *</label><input type="text" id="firstName" placeholder="e.g. JUAN" required></div>
+        <div class="form-group"><label>Middle Name</label><input type="text" id="middleName" placeholder="e.g. CARLOS"></div>
+        <div class="form-group"><label>Last Name *</label><input type="text" id="lastName" placeholder="e.g. DELA CRUZ" required></div>
+      </div>
+      <div class="form-grid-2">
+        <div class="form-group"><label>Suffix</label><select id="suffix"><option>None</option><option>Jr.</option><option>Sr.</option><option>II</option><option>III</option></select></div>
+        <div class="form-group"><label>Gender *</label><select id="gender" required><option value="">Select Gender</option><option>Male</option><option>Female</option></select></div>
+      </div>
+      <div class="form-grid">
+        <div class="form-group"><label>Date of Birth *</label><input type="date" id="dob" required onchange="recalculate()"></div>
+        <div class="form-group"><label>Contact Number *</label><input type="tel" id="contactNo" placeholder="e.g. +63 917 123 4567" required></div>
+        <div class="form-group"><label>Email Address *</label><input type="email" id="email" placeholder="e.g. juan.delacruz@gmail.com" required></div>
+      </div>
+      <div class="form-grid-2">
+        <div class="form-group"><label>Number of Travelers</label><select id="travelersCount" onchange="updateTravelers()"><option value="1">1 Person</option><option value="2">2 Persons</option><option value="3">3 Persons</option><option value="4">4 Persons</option><option value="5">5 Persons</option><option value="6">6+ Persons</option></select></div>
+        <div class="form-group"><label>Travel Date *</label><select id="travelDate" required onchange="recalculate()"><option value="2027-03-12" selected>March 12 – 21, 2027</option></select></div>
+      </div>
+
+      <!-- Additional Travelers -->
+      <div class="additional-travelers" id="additional-travelers" style="display:none;">
+        <h4>👥 Additional Traveler Details</h4>
+        <div class="sub">Please provide details for each additional traveler as they appear on their passport.</div>
+        <div id="additional-travelers-list"></div>
+      </div>
+
+      <!-- Package Type -->
+      <div class="toggle-section">
+        <div class="toggle-label">✈️ Package Type *</div>
+        <div class="toggle-group">
+          <div class="toggle-option active" data-value="full" onclick="selectPackage('full')">
+            <div class="toggle-title">Full Package</div>
+            <div class="toggle-sub">With Airfare</div>
+            <div class="toggle-price">₱125,000</div>
+          </div>
+          <div class="toggle-option" data-value="land" onclick="selectPackage('land')">
+            <div class="toggle-title">Land Arrangement Only</div>
+            <div class="toggle-sub">No Airfare & Airport Transfer</div>
+            <div class="toggle-price">₱95,000</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment Scheme -->
+      <div class="toggle-section">
+        <div class="toggle-label">💳 Preferred Payment Scheme *</div>
+        <div class="toggle-group-3">
+          <div class="toggle-option active" data-value="installment" onclick="selectPayment('installment')">
+            <div class="toggle-title">Monthly Installment</div>
+          </div>
+          <div class="toggle-option" data-value="downpayment" onclick="selectPayment('downpayment')">
+            <div class="toggle-title">₱50k Down</div>
+          </div>
+          <div class="toggle-option" data-value="cash" onclick="selectPayment('cash')">
+            <div class="toggle-title">Full Cash</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Installment Preview -->
+      <div class="installment-preview" id="installment-preview"></div>
+
+      <!-- Pricing Summary -->
+      <div class="pricing-summary" id="pricing-summary" style="display:none;"></div>
+
+      <!-- Notes -->
+      <div class="form-group" style="margin-bottom:1.5rem;">
+        <label>Additional Notes / Questions</label>
+        <textarea id="notes" rows="3" placeholder="Any special requests, questions, or additional traveler names..."></textarea>
+      </div>
+
+      <!-- Submit -->
+      <div class="submit-section">
+        <div class="checkbox-row">
+          <input type="checkbox" id="agree" required>
+          <label for="agree">I confirm that all details provided are correct and accurate as they appear on my passport. I understand that a temporary hold will be placed and no payment is required at this time.</label>
+        </div>
+        <button type="submit" class="submit-btn" id="submit-btn">Submit Reservation Request ✨</button>
+        <div class="secure-note">🔒 Secure Submission. Your details are fully protected.</div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <h4>Discover Group</h4>
+      <p>Discover Group of Travel Services Incorporated is a fully registered, licensed premier travel agency crafting exquisite, seamlessly curated group journeys across Europe, Asia, and the Americas.</p>
+    </div>
+    <div>
+      <h4>Sales Department</h4>
+      <p>📞 0919-394-6919<br>📞 0960-312-3856<br>📞 0960-582-7673</p>
+    </div>
+    <div>
+      <h4>Visa & Support</h4>
+      <p>📞 0960-312-3656<br>📞 0962-373-6463<br>📞 0962-373-6465</p>
+    </div>
+    <div>
+      <h4>Office Location</h4>
+      <p>📍 The Upper Class Tower, Quezon Ave & Sct Reyes Corner, Quezon City, Metro Manila, Philippines</p>
+      <p style="margin-top:0.5rem;">✉️ inquiry@discovergrp.com<br>✉️ traveldesk@discovergrp.com</p>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 Discover Group of Travel Services Incorporated. All Rights Reserved.</div>
+</footer>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ==================== ITINERARY DATA ====================
+const ITINERARY = [
+  { day: 1, title: "Departure Manila – Paris", city: "paris", description: "Depart in <strong>Ninoy Aquino International Airport (NAIA)</strong> – <strong>Paris Charles de Gaulle Airport (CDG)</strong>.", airline: "Oneway airfare included", highlights: ["Exciting journey begins"], meals: null, image: null, travelTime: null },
+  { day: 2, title: "Arrival Paris", city: "paris", description: "After arrival, check in to the hotel. Guests may take a rest or spend the remaining time of the day just exploring the city at night.", highlights: ["Welcome to France", "Hotel check-in & rest", "Free time to explore nearby"], meals: null, nights: "Hotel accommodation in Europe (3 star)", image: null, travelTime: null },
+  { day: 3, title: "Paris City Tour", city: "paris", description: "Explore the heart of Paris, a city that seamlessly blends timeless elegance with centuries of rich cultural heritage. Begin with a scenic drive along the <strong>Champs Élysées</strong>, one of the most beautiful avenues in the world, leading to the historic <strong>Place de la Concorde</strong>, a key location during the French Revolution. Take in the majesty of the <strong>Arc de Triomphe</strong>, a powerful monument honoring those who fought during the Revolution and the Napoleonic Wars, offering panoramic views from its summit. We'll pass by Louvre Museum and then, behold the iconic <strong>Eiffel Tower</strong>, a true symbol of Paris. Whether standing beneath its iron frame or admiring it from a distance, it's an unforgettable sight.", highlights: ["Champs Élysées & Place de la Concorde", "Arc de Triomphe", "Eiffel Tower"], meals: "Breakfast included", image: "images/paris-collage.webp", travelTime: null },
+  { day: 4, title: "Paris - Lucerne", city: "lucerne", description: "Travel through the heart of Europe as you journey from the romantic charm of Paris to the stylish city of Lucerne. Enjoy scenic views of the countryside and sit back as we travel to the beautiful city Switzerland.<br><br>Upon arrival, take a quick stop at the chapel bridge or have your dinner along the river. Such a majestic sight to see!", highlights: ["Scenic drive through Europe", "Chapel Bridge stop"], meals: "Breakfast included", image: "images/lucerne-collage.webp", travelTime: "Paris - Lucerne: 6hrs 56mins" },
+  { day: 5, title: "Lucerne Free Time", city: "lucerne", description: "Begin your day in Lucerne with free time to explore the city's charming streets or enjoy a quiet morning at a cozy café. For those looking to venture beyond the city, join an optional full-day alpine adventure. Travel to the enchanting village of Grindelwald, surrounded by the Eiger, Mönch, and Jungfrau peaks. Continue to Interlaken, a vibrant alpine town nestled between two glittering lakes.<br><br>End the mountain loop in Lauterbrunnen, a hidden valley straight out of a fairytale. Surrounded by towering cliffs and home to 72 waterfalls, this peaceful village captures the essence of Switzerland's natural beauty. Don't miss the iconic Staubbach Falls cascading down the rock face right beside the town. Return to Lucerne in the evening with unforgettable memories of soaring peaks, glacial valleys, and the serene charm of Switzerland's most iconic alpine destinations.", highlights: ["Free day in Lucerne"], optionalTours: ["Grindelwald - Iseltwald - Lauterbrunnen Tour"], meals: "Breakfast included", image: "images/grindelwald-collage.jpg", travelTime: "Lucerne - Grindelwald: 2hrs | Grindelwald - Interlaken: 26mins | Interlaken - Lauterbrunnen: 17mins | Lauterbrunnen - Zurich: 1hr 57mins" },
+  { day: 6, title: "Lucerne - Milan - Mestre", city: "milan", description: "Travel from Lucerne to Milan, enjoying a scenic journey through the Swiss countryside and the picturesque landscapes of the Alps. Upon arrival in Milan, check out the famous Duomo Milano or shop at the oldest active shopping mall in Italy - Galleria Vittorio Emmanuel II. Have your lunch around the area before proceeding to Mestre for an overnight stay.", highlights: ["Scenic Swiss-Italian Alps crossing", "Duomo Milano", "Galleria Vittorio Emmanuel II"], meals: "Breakfast included", image: "images/milan.jpg", travelTime: "Lucerne - Milan: 3hrs 33mins" },
+  { day: 7, title: "Mestre - Venice - Rome", city: "venice", description: "After breakfast, the group will proceed to Tronchetto to ride the water bus going to the famous Island of Venice - a carless city of Italy. Once on the island you'll walk around some of Venice's best-known locations, beginning in the Piazzo and the Basilica di San Marco, a stunning piece of Byzantine architecture. You'll also see the legendary Bridge of Sighs, which appears on many a postcard or picture of Venice and connects the old prison to the interrogation rooms in the Doge's Palace.<br><br>Guests can also do an optional activity of riding a gondola that every visitors don't want to miss. After and enjoyable visit to the island, we'll ride the coach again going to Rome", highlights: ["Venice Island", "Basilica di San Marco", "Bridge of Sighs"], optionalActivities: ["Gondola Ride"], meals: "Breakfast included", image: "images/rome-amalfi-collage.jpg", travelTime: "Mestre - Venice: 20 mins | Venice - Rome: 5hrs 40 mins" },
+  { day: 8, title: "Free Time in Rome", city: "rome", description: "Spend your day in the beautiful city of Rome, either enjoying free time to explore at your own pace or joining an exciting optional tour that takes you to the best sights of Rome and add another country to your list - Vatican (The smallest country in the world)<br><br>The tour starts from Colosseum, having a photo opportunity around the area as we walk through highlights of Rome. See the world famous Trevi Fountain and get a chance to toss a coin and proceed to see the Pantheon and take a snap of St Angelo's castle from the bridge.<br><br>After that, proceed to Vatican and see the St Peter's Basilica. Guests can also roam around and buy souvenirs.", highlights: ["Free day in Rome"], optionalTours: ["Rome City Tour and Vatican"], meals: "Breakfast included", image: "images/vatican-rome-collage.jpg", travelTime: null },
+  { day: 9, title: "Departure Rome – Manila", city: "rome", description: "Depart from <strong>Leonardo da Vinci–Fiumicino Airport (FCO)</strong> going back to <strong>Manila Ninoy Aquino International Airport (NAIA)</strong>.", airline: "Oneway airfare included", highlights: ["Airport transfer included", "Flight back to Manila"], meals: "Breakfast included", image: null, travelTime: null },
+  { day: 10, title: "Arrival Manila", city: "rome", description: "Arrive in Manila. End of Tour.", highlights: ["Safe arrival home", "Unforgettable memories"], meals: null, image: null, travelTime: null }
+];
+
+// ==================== TRAVEL DATES ====================
+const TRAVEL_DATES = {
+  "2027-03-12": { start: "2027-03-12", end: "2027-03-21" }
+};
+
+// ==================== STATE ====================
+let selectedDay = 0;
+let selectedPackage = 'full';
+let selectedPayment = 'installment';
+
+// ==================== ITINERARY RENDERING ====================
+function initItinerary() {
+  const tabsEl = document.getElementById('day-tabs');
+  tabsEl.innerHTML = ITINERARY.map((d, i) => 
+    `<span class="day-tab${i === 0 ? ' active' : ''}" onclick="selectDay(${i})">Day ${String(d.day).padStart(2,'0')}</span>`
+  ).join('');
+  renderDay(0);
+}
+
+function selectDay(index) {
+  selectedDay = index;
+  document.querySelectorAll('.day-tab').forEach((t, i) => t.classList.toggle('active', i === index));
+  // Update city tabs
+  const city = ITINERARY[index].city;
+  document.querySelectorAll('.city-tab').forEach(t => t.classList.toggle('active', t.dataset.city === city));
+  renderDay(index);
+}
+
+function renderDay(index) {
+  const d = ITINERARY[index];
+  let html = `<div class="day-label">DAY ${String(d.day).padStart(2,'0')}</div>`;
+  html += `<h3>${d.title}</h3>`;
+  html += `<div class="description">${d.description}</div>`;
+  
+  if (d.image) {
+    html += `<img class="collage-img" src="${d.image}" alt="${d.title} - Destinations" loading="lazy">`;
+  }
+  
+  if (d.highlights && d.highlights.length) {
+    html += `<div class="info-section"><div class="info-title">Day Highlights:</div><ul class="info-list">${d.highlights.map(h => `<li>${h}</li>`).join('')}</ul></div>`;
+  }
+  
+  if (d.optionalTours) {
+    html += `<div class="optional-box"><div class="opt-title">Optional Tour:</div>${d.optionalTours.map(t => `<p>${t}</p>`).join('')}</div>`;
+  }
+  if (d.optionalActivities) {
+    html += `<div class="optional-box"><div class="opt-title">Optional Activity:</div>${d.optionalActivities.map(t => `<p>${t}</p>`).join('')}</div>`;
+  }
+  
+  if (d.meals) {
+    html += `<div class="info-section"><div class="info-title">Meals:</div><span class="meals-badge">🍽️ ${d.meals}</span></div>`;
+  }
+  if (d.nights) {
+    html += `<div style="margin-top:0.5rem;font-size:0.8rem;color:var(--accent);font-weight:600;">🏨 ${d.nights}</div>`;
+  }
+  if (d.airline) {
+    html += `<div style="margin-top:0.5rem;font-size:0.8rem;color:var(--muted);font-style:italic;">✈️ ${d.airline}</div>`;
+  }
+  if (d.travelTime) {
+    html += `<div class="travel-time">🕐 ${d.travelTime}</div>`;
+  }
+  
+  html += `<div class="note-text">Note: Rates for optional activities or tours are valid at the time of purchase and may change if purchased at a later time.</div>`;
+  
+  document.getElementById('day-content').innerHTML = html;
+}
+
+// City tab click
+document.querySelectorAll('.city-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    const city = tab.dataset.city;
+    const firstDay = ITINERARY.findIndex(d => d.city === city);
+    if (firstDay >= 0) selectDay(firstDay);
+  });
+});
+
+// ==================== PRICING LOGIC ====================
+function getAgeAtDate(dob, refDate) {
+  const birth = new Date(dob);
+  const ref = new Date(refDate);
+  let years = ref.getFullYear() - birth.getFullYear();
+  let months = ref.getMonth() - birth.getMonth();
+  if (ref.getDate() < birth.getDate()) months--;
+  if (months < 0) { years--; months += 12; }
+  return { years, totalMonths: years * 12 + months };
+}
+
+function classifyAge(dob, startDate, endDate) {
+  if (!dob || !startDate || !endDate) return 'adult';
+  const { totalMonths } = getAgeAtDate(dob, endDate);
+  const { years: yearsAtStart } = getAgeAtDate(dob, startDate);
+  const { years: yearsAtEnd } = getAgeAtDate(dob, endDate);
+  if (totalMonths >= 0 && totalMonths <= 23) return 'infant';
+  if (yearsAtEnd >= 2 && yearsAtEnd < 6) return 'child';
+  if (yearsAtStart >= 60) return 'senior';
+  return 'adult';
+}
+
+function getCategoryRate(category, standardRate) {
+  switch(category) {
+    case 'infant': return { rate: 50000, discount: standardRate - 50000 };
+    case 'child': return { rate: standardRate - 5000, discount: 5000 };
+    case 'senior': return { rate: standardRate - 5000, discount: 5000 };
+    default: return { rate: standardRate, discount: 0 };
+  }
+}
+
+function getCategoryLabel(cat) {
+  switch(cat) {
+    case 'infant': return 'Infant';
+    case 'child': return 'Child';
+    case 'senior': return 'Senior';
+    default: return 'Adult';
+  }
+}
+
+function formatPHP(amount) {
+  return '₱' + amount.toLocaleString('en-US');
+}
+
+// ==================== FORM LOGIC ====================
+function updateTravelers() {
+  const count = parseInt(document.getElementById('travelersCount').value);
+  const container = document.getElementById('additional-travelers');
+  const list = document.getElementById('additional-travelers-list');
+  
+  if (count <= 1) {
+    container.style.display = 'none';
+    list.innerHTML = '';
+  } else {
+    container.style.display = 'block';
+    let html = '';
+    for (let i = 2; i <= Math.min(count, 6); i++) {
+      html += `<div class="traveler-block">
+        <div class="traveler-label">Traveler ${i}</div>
+        <div class="form-grid">
+          <div class="form-group"><label>First Name *</label><input type="text" class="traveler-field" data-idx="${i}" data-field="firstName" placeholder="FIRST NAME" required></div>
+          <div class="form-group"><label>Middle Name</label><input type="text" class="traveler-field" data-idx="${i}" data-field="middleName" placeholder="MIDDLE NAME"></div>
+          <div class="form-group"><label>Last Name *</label><input type="text" class="traveler-field" data-idx="${i}" data-field="lastName" placeholder="LAST NAME" required></div>
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group"><label>Suffix</label><select class="traveler-field" data-idx="${i}" data-field="suffix"><option>None</option><option>Jr.</option><option>Sr.</option><option>II</option><option>III</option></select></div>
+          <div class="form-group"><label>Gender *</label><select class="traveler-field" data-idx="${i}" data-field="gender" required><option value="">Select Gender</option><option>Male</option><option>Female</option></select></div>
+        </div>
+        <div class="form-grid">
+          <div class="form-group"><label>Date of Birth *</label><input type="date" class="traveler-field" data-idx="${i}" data-field="dob" required onchange="recalculate()"></div>
+          <div class="form-group"><label>Contact Number *</label><input type="tel" class="traveler-field" data-idx="${i}" data-field="contact" placeholder="+63 9XX XXX XXXX" required></div>
+          <div class="form-group"><label>Email Address *</label><input type="email" class="traveler-field" data-idx="${i}" data-field="email" placeholder="email@example.com" required></div>
+        </div>
+      </div>`;
+    }
+    list.innerHTML = html;
+  }
+  recalculate();
+}
+
+function selectPackage(type) {
+  selectedPackage = type;
+  document.querySelectorAll('.toggle-group .toggle-option').forEach(el => {
+    el.classList.toggle('active', el.dataset.value === type);
+  });
+  recalculate();
+}
+
+function selectPayment(type) {
+  selectedPayment = type;
+  document.querySelectorAll('.toggle-group-3 .toggle-option').forEach(el => {
+    el.classList.toggle('active', el.dataset.value === type);
+  });
+  recalculate();
+}
+
+function recalculate() {
+  const travelDateId = document.getElementById('travelDate').value;
+  const dates = TRAVEL_DATES[travelDateId];
+  if (!dates) return;
+  
+  const standardRate = selectedPackage === 'full' ? 125000 : 95000;
+  const count = parseInt(document.getElementById('travelersCount').value);
+  const primaryDob = document.getElementById('dob').value;
+  const firstName = document.getElementById('firstName').value || 'Primary Traveler';
+  
+  // Collect all participants
+  const participants = [{ name: firstName, dob: primaryDob }];
+  for (let i = 2; i <= count; i++) {
+    const dobEl = document.querySelector(`.traveler-field[data-idx="${i}"][data-field="dob"]`);
+    const nameEl = document.querySelector(`.traveler-field[data-idx="${i}"][data-field="firstName"]`);
+    participants.push({
+      name: nameEl ? nameEl.value || `Traveler ${i}` : `Traveler ${i}`,
+      dob: dobEl ? dobEl.value : ''
+    });
+  }
+  
+  // Calculate pricing
+  const classified = participants.map((p, idx) => {
+    const category = classifyAge(p.dob, dates.start, dates.end);
+    const { rate, discount } = getCategoryRate(category, standardRate);
+    return { ...p, index: idx, category, rate, discount, isFree: false, finalRate: rate };
+  });
+  
+  const grandTotal = classified.reduce((sum, p) => sum + p.finalRate, 0);
+  const totalDiscount = classified.reduce((sum, p) => sum + p.discount, 0);
+  
+  // Render pricing summary
+  const summaryEl = document.getElementById('pricing-summary');
+  if (primaryDob || count > 1) {
+    summaryEl.style.display = 'block';
+    let html = `<h4>💰 Pricing Summary</h4>`;
+    classified.forEach(p => {
+      const label = p.index === 0 ? 'Primary Traveler' : p.name;
+      const catBadge = p.category !== 'adult' ? `<span class="badge">${getCategoryLabel(p.category)}</span>` : '';
+      const originalShow = p.discount > 0 ? `<span class="original">${formatPHP(standardRate)}</span>` : '';
+      const discountShow = p.discount > 0 ? `<span class="discount-text">(-${formatPHP(p.discount)})</span>` : '';
+      const freeShow = p.isFree ? ' <span style="color:#4ade80;font-weight:700;">(FREE)</span>' : '';
+      html += `<div class="pricing-row"><span class="label">${label} ${catBadge}</span><span class="value">${originalShow}${formatPHP(p.finalRate)}${discountShow}${freeShow}</span></div>`;
+    });
+    html += `<div class="pricing-row total"><span class="label">Total Cost (${count} traveler${count > 1 ? 's' : ''})</span><span class="value">${formatPHP(grandTotal)}</span></div>`;
+    if (totalDiscount > 0) {
+      html += `<div class="savings-banner">🎉 You save ${formatPHP(totalDiscount)} with discounts!${classified.some(p => p.category === 'senior') ? ' (Senior)' : classified.some(p => p.category === 'child') ? ' (Child)' : ''}</div>`;
+    }
+    html += `<div class="pricing-note">Infants (0–23 months): Flat ₱50,000. Children (2–5): ₱5,000 off. Seniors (60+): ₱5,000 off. Discounts applied automatically to the Full Package.</div>`;
+    summaryEl.innerHTML = html;
+  } else {
+    summaryEl.style.display = 'none';
+  }
+  
+  // Render installment preview
+  renderInstallmentPreview(grandTotal, travelDateId);
+}
+
+function renderInstallmentPreview(total, travelDateId) {
+  const previewEl = document.getElementById('installment-preview');
+  if (selectedPayment !== 'installment') {
+    previewEl.style.display = 'none';
+    return;
+  }
+  previewEl.style.display = 'block';
+  
+  const dates = TRAVEL_DATES[travelDateId];
+  if (!dates) return;
+  
+  // Must be fully paid 3 months before travel
+  const travelStart = new Date(dates.start);
+  const deadline = new Date(travelStart);
+  deadline.setMonth(deadline.getMonth() - 3);
+  
+  // Calculate months from now until deadline
+  const now = new Date();
+  const startMonth = new Date(now.getFullYear(), now.getMonth() + 1, 15); // Next month 15th
+  let months = 0;
+  let checkDate = new Date(startMonth);
+  while (checkDate <= deadline) {
+    months++;
+    checkDate.setMonth(checkDate.getMonth() + 1);
+  }
+  if (months < 1) months = 1;
+  
+  const perHead = total / parseInt(document.getElementById('travelersCount').value || '1');
+  const monthlyAmount = Math.ceil(perHead / months);
+  
+  let html = `<h4>📅 Your Installment Plan (${months} months)</h4>`;
+  html += `<div class="note">Fully paid 3 months before departure. Monthly payments divided equally:</div>`;
+  
+  const showMonths = Math.min(months, 3);
+  let payDate = new Date(startMonth);
+  for (let i = 0; i < showMonths; i++) {
+    const dateStr = payDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    html += `<div class="installment-row"><span class="date">${dateStr}</span><span class="amount">${formatPHP(monthlyAmount)} per head</span></div>`;
+    payDate.setMonth(payDate.getMonth() + 1);
+  }
+  if (months > 3) {
+    html += `<div class="installment-more">... and ${months - 3} more payments</div>`;
+  }
+  html += `<div class="installment-row total"><span class="date">Total (${months} months)</span><span class="amount">${formatPHP(perHead)} per head</span></div>`;
+  
+  previewEl.innerHTML = html;
+}
+
+// ==================== FORM SUBMISSION ====================
+function handleSubmit(e) {
+  e.preventDefault();
+  
+  const agree = document.getElementById('agree').checked;
+  if (!agree) {
+    showToast('Please confirm the checkbox before submitting.', 'error');
+    return false;
+  }
+  
+  // Collect form data
+  const data = {
+    firstName: document.getElementById('firstName').value,
+    middleName: document.getElementById('middleName').value,
+    lastName: document.getElementById('lastName').value,
+    suffix: document.getElementById('suffix').value,
+    gender: document.getElementById('gender').value,
+    dob: document.getElementById('dob').value,
+    contactNo: document.getElementById('contactNo').value,
+    email: document.getElementById('email').value,
+    travelersCount: document.getElementById('travelersCount').value,
+    travelDate: document.getElementById('travelDate').value,
+    packageType: selectedPackage,
+    paymentScheme: selectedPayment,
+    notes: document.getElementById('notes').value
+  };
+  
+  // Validate required fields
+  if (!data.firstName || !data.lastName || !data.gender || !data.dob || !data.contactNo || !data.email) {
+    showToast('Please fill in all required fields.', 'error');
+    return false;
+  }
+  
+  // Show success
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Submitting...';
+  
+  setTimeout(() => {
+    showToast('Reservation request submitted successfully! We will contact you within 24 hours.');
+    btn.textContent = '✓ Submitted Successfully';
+  }, 1500);
+  
+  return false;
+}
+
+function showToast(msg, type = 'success') {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.className = 'toast show' + (type === 'error' ? ' error' : '');
+  setTimeout(() => { toast.className = 'toast'; }, 4000);
+}
+
+// ==================== INIT ====================
+document.addEventListener('DOMContentLoaded', () => {
+  initItinerary();
+  recalculate();
+});
+</script>
+</body>
+</html>
