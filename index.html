@@ -888,15 +888,19 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
 
 /* Installment Preview */
 .installment-preview {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: #ffffff;
+  border: 1px solid rgba(255,255,255,0.15);
   border-radius: var(--radius);
   padding: 1.5rem;
   margin-bottom: 2rem;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
 }
 .installment-preview h4 {
   font-size: 0.9rem;
-  color: var(--white);
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 700;
+  color: #1a2744;
   margin-bottom: 0.5rem;
   display: flex;
   align-items: center;
@@ -904,27 +908,33 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
 }
 .installment-preview .note {
   font-size: 0.78rem;
-  color: rgba(255,255,255,0.8);
+  color: #4b5a7a;
   margin-bottom: 1rem;
+  line-height: 1.6;
 }
 .installment-row {
   display: flex;
   justify-content: space-between;
-  padding: 0.3rem 0;
+  padding: 0.4rem 0;
   font-size: 0.82rem;
-  color: rgba(255,255,255,0.92);
+  color: #374151;
+  border-bottom: 1px solid #f1f5f9;
 }
-.installment-row .amount { font-weight: 600; color: var(--white); }
+.installment-row:last-of-type { border-bottom: none; }
+.installment-row .date { color: #374151; }
+.installment-row .amount { font-weight: 700; color: #1a2744; }
 .installment-row.total {
-  border-top: 1px solid rgba(255,255,255,0.12);
+  border-top: 1px solid #e2e8f0;
+  border-bottom: none;
   margin-top: 0.5rem;
-  padding-top: 0.5rem;
-  font-weight: 700;
-  color: var(--white);
+  padding-top: 0.75rem;
+  font-weight: 800;
+  color: #1a2744;
 }
+.installment-row.total .amount { color: #1a2744; font-size: 0.9rem; }
 .installment-more {
   font-size: 0.72rem;
-  color: rgba(255,255,255,0.7);
+  color: #6b7a94;
   font-style: italic;
   padding: 0.3rem 0;
 }
@@ -1979,48 +1989,65 @@ function recalculate() {
 
 function renderInstallmentPreview(total, travelDateId) {
   const previewEl = document.getElementById('installment-preview');
-  if (selectedPayment !== 'installment') {
-    previewEl.style.display = 'none';
-    return;
-  }
   previewEl.style.display = 'block';
 
   const dates = TRAVEL_DATES[travelDateId];
   if (!dates) return;
 
-  const travelStart = new Date(dates.start);
-  const deadline = new Date(travelStart);
-  deadline.setMonth(deadline.getMonth() - 3);
+  const count = parseInt(document.getElementById('travelersCount').value || '1');
+  const perHead = total / count;
 
-  const now = new Date();
-  const startMonth = new Date(now.getFullYear(), now.getMonth() + 1, 15);
-  let months = 0;
-  let checkDate = new Date(startMonth);
-  while (checkDate <= deadline) {
-    months++;
-    checkDate.setMonth(checkDate.getMonth() + 1);
+  if (selectedPayment === 'installment') {
+    const travelStart = new Date(dates.start);
+    const deadline = new Date(travelStart);
+    deadline.setMonth(deadline.getMonth() - 3);
+
+    const now = new Date();
+    const startMonth = new Date(now.getFullYear(), now.getMonth() + 1, 15);
+    let months = 0;
+    let checkDate = new Date(startMonth);
+    while (checkDate <= deadline) {
+      months++;
+      checkDate.setMonth(checkDate.getMonth() + 1);
+    }
+    if (months < 1) months = 1;
+
+    const monthlyAmount = Math.ceil(perHead / months);
+
+    let html = `<h4>📅 Your Installment Plan (${months} months)</h4>`;
+    html += `<div class="note">Fully paid 3 months before departure. Monthly payments divided equally:</div>`;
+
+    const showMonths = Math.min(months, 3);
+    let payDate = new Date(startMonth);
+    for (let i = 0; i < showMonths; i++) {
+      const dateStr = payDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      html += `<div class="installment-row"><span class="date">${dateStr}</span><span class="amount">${formatPHP(monthlyAmount)} per head</span></div>`;
+      payDate.setMonth(payDate.getMonth() + 1);
+    }
+    if (months > 3) {
+      html += `<div class="installment-more">... and ${months - 3} more payments</div>`;
+    }
+    html += `<div class="installment-row total"><span class="date">Total (${months} months)</span><span class="amount">${formatPHP(perHead)} per head</span></div>`;
+    previewEl.innerHTML = html;
+
+  } else if (selectedPayment === 'downpayment') {
+    const balance = perHead - 50000;
+    let html = `<h4>💳 <em>Down Payment Scheme</em></h4>`;
+    html += `<div class="note">Secure your slot with ₱50,000 down payment per head. The remaining balance will be due upon release of your visa result.</div>`;
+    html += `<div class="installment-row"><span class="date">Down Payment (per head)</span><span class="amount">${formatPHP(50000)}</span></div>`;
+    html += `<div class="installment-row"><span class="date">Balance (per head) — due upon visa approval</span><span class="amount">${formatPHP(balance)}</span></div>`;
+    html += `<div class="installment-row total"><span class="date">Grand Total</span><span class="amount">${formatPHP(perHead)}</span></div>`;
+    previewEl.innerHTML = html;
+
+  } else if (selectedPayment === 'cash') {
+    let html = `<h4>💵 <em>Full Cash Payment</em></h4>`;
+    html += `<div class="note">Pay the full amount upon reservation and secure your slot immediately.</div>`;
+    html += `<div class="installment-row total"><span class="date">Full Payment (per head)</span><span class="amount">${formatPHP(perHead)}</span></div>`;
+    previewEl.innerHTML = html;
+
+  } else {
+    previewEl.style.display = 'none';
   }
-  if (months < 1) months = 1;
-
-  const perHead = total / parseInt(document.getElementById('travelersCount').value || '1');
-  const monthlyAmount = Math.ceil(perHead / months);
-
-  let html = `<h4>📅 Your Installment Plan (${months} months)</h4>`;
-  html += `<div class="note">Fully paid 3 months before departure. Monthly payments divided equally:</div>`;
-
-  const showMonths = Math.min(months, 3);
-  let payDate = new Date(startMonth);
-  for (let i = 0; i < showMonths; i++) {
-    const dateStr = payDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-    html += `<div class="installment-row"><span class="date">${dateStr}</span><span class="amount">${formatPHP(monthlyAmount)} per head</span></div>`;
-    payDate.setMonth(payDate.getMonth() + 1);
-  }
-  if (months > 3) {
-    html += `<div class="installment-more">... and ${months - 3} more payments</div>`;
-  }
-  html += `<div class="installment-row total"><span class="date">Total (${months} months)</span><span class="amount">${formatPHP(perHead)} per head</span></div>`;
-
-  previewEl.innerHTML = html;
 }
 
 // ==================== FORM SUBMISSION ====================
