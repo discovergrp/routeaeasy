@@ -1391,17 +1391,16 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
     <thead>
       <tr>
         <th style="text-align:left;">Your Path to Europe</th>
-        <th>Monthly<br><small style="font-weight:400;text-transform:none;letter-spacing:0;">Divided equally</small></th>
         <th class="best-seller">⭐ BEST SELLER<br>Down Payment<br><small style="font-weight:400;text-transform:none;letter-spacing:0;">₱50,000</small></th>
         <th>Full Cash<br><small style="font-weight:400;text-transform:none;letter-spacing:0;">₱125,000</small></th>
       </tr>
     </thead>
     <tbody>
-      <tr><td>Total Package Cost</td><td>₱125,000</td><td>₱125,000</td><td>₱125,000</td></tr>
-      <tr><td>Visa Denial Protection</td><td class="check">✓ 100% Refund</td><td class="check">✓ 100% Refund</td><td class="check">✓ 100% Refund</td></tr>
-      <tr><td>Visa Processing &amp; Appointment Fee</td><td>Standard Rate</td><td>Standard Rate</td><td class="discount">50% OFF</td></tr>
-      <tr><td>Permits, City Tax &amp; Tippings</td><td>Standard Rate</td><td>Standard Rate</td><td class="discount">50% OFF</td></tr>
-      <tr><td>Travel Insurance</td><td>Standard Rate</td><td>Standard Rate</td><td class="discount">50% OFF</td></tr>
+      <tr><td>Total Package Cost</td><td>₱125,000</td><td>₱125,000</td></tr>
+      <tr><td>Visa Denial Protection</td><td class="check">✓ 100% Refund</td><td class="check">✓ 100% Refund</td></tr>
+      <tr><td>Visa Processing &amp; Appointment Fee</td><td>Standard Rate</td><td class="discount">50% OFF</td></tr>
+      <tr><td>Permits, City Tax &amp; Tippings</td><td>Standard Rate</td><td class="discount">50% OFF</td></tr>
+      <tr><td>Travel Insurance</td><td>Standard Rate</td><td class="discount">50% OFF</td></tr>
     </tbody>
   </table>
 </section>
@@ -1536,11 +1535,8 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
       <!-- Payment Scheme -->
       <div class="toggle-section">
         <div class="toggle-label">💳 Preferred Payment Scheme *</div>
-        <div class="toggle-group-3">
-          <div class="toggle-option active" data-value="installment" onclick="selectPayment('installment')">
-            <div class="toggle-title">Monthly Installment</div>
-          </div>
-          <div class="toggle-option" data-value="downpayment" onclick="selectPayment('downpayment')">
+        <div class="toggle-group" style="grid-template-columns:1fr 1fr;">
+          <div class="toggle-option active" data-value="downpayment" onclick="selectPayment('downpayment')">
             <div class="toggle-title">₱50k Down</div>
           </div>
           <div class="toggle-option" data-value="cash" onclick="selectPayment('cash')">
@@ -1945,7 +1941,7 @@ const TRAVEL_DATES = {
 // ==================== STATE ====================
 let selectedDay = 0;
 let selectedPackage = 'full';
-let selectedPayment = 'installment';
+let selectedPayment = 'downpayment';
 
 // ==================== ITINERARY RENDERING ====================
 function initItinerary() {
@@ -2167,40 +2163,7 @@ function renderInstallmentPreview(total, travelDateId) {
   const count = parseInt(document.getElementById('travelersCount').value || '1');
   const perHead = total / count;
 
-  if (selectedPayment === 'installment') {
-    const travelStart = new Date(dates.start);
-    const deadline = new Date(travelStart);
-    deadline.setMonth(deadline.getMonth() - 3);
-
-    const now = new Date();
-    const startMonth = new Date(now.getFullYear(), now.getMonth() + 1, 15);
-    let months = 0;
-    let checkDate = new Date(startMonth);
-    while (checkDate <= deadline) {
-      months++;
-      checkDate.setMonth(checkDate.getMonth() + 1);
-    }
-    if (months < 1) months = 1;
-
-    const monthlyAmount = Math.ceil(perHead / months);
-
-    let html = `<h4>📅 Your Installment Plan (${months} months)</h4>`;
-    html += `<div class="note">Fully paid 3 months before departure. Monthly payments divided equally:</div>`;
-
-    const showMonths = Math.min(months, 3);
-    let payDate = new Date(startMonth);
-    for (let i = 0; i < showMonths; i++) {
-      const dateStr = payDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-      html += `<div class="installment-row"><span class="date">${dateStr}</span><span class="amount">${formatPHP(monthlyAmount)} per head</span></div>`;
-      payDate.setMonth(payDate.getMonth() + 1);
-    }
-    if (months > 3) {
-      html += `<div class="installment-more">... and ${months - 3} more payments</div>`;
-    }
-    html += `<div class="installment-row total"><span class="date">Total (${months} months)</span><span class="amount">${formatPHP(perHead)} per head</span></div>`;
-    previewEl.innerHTML = html;
-
-  } else if (selectedPayment === 'downpayment') {
+  if (selectedPayment === 'downpayment') {
     const balance = perHead - 50000;
     let html = `<h4>💳 <em>Down Payment Scheme</em></h4>`;
     html += `<div class="note">Secure your slot with ₱50,000 down payment per head. The remaining balance will be due upon release of your visa result.</div>`;
@@ -2313,7 +2276,7 @@ function handleSubmit(e) {
     gender, date_of_birth: dob, email, contact_number: contactNo,
     travel_date: travelDateLabel,
     package_type: selectedPackage === 'full' ? 'Full Package (₱125,000)' : 'Land Arrangement Only (₱95,000)',
-    payment_scheme: selectedPayment === 'installment' ? 'Monthly Installment' : selectedPayment === 'downpayment' ? '₱50K Down Payment' : 'Full Cash',
+    payment_scheme: selectedPayment === 'downpayment' ? '₱50K Down Payment' : 'Full Cash',
     travelers_count: count + ' person(s)',
     total_amount: '₱' + grandTotal.toLocaleString(),
     travel_consultant: consultant,
@@ -2356,7 +2319,7 @@ function generateBookingConfirmation(data) {
 
   // Package & payment info
   const pkgType = selectedPackage === 'full' ? 'Full Package (With Airfare)' : 'Land Arrangement Only';
-  const payScheme = selectedPayment === 'installment' ? 'Monthly Installment' : selectedPayment === 'downpayment' ? '₱50k Down Payment' : 'Full Cash';
+  const payScheme = selectedPayment === 'downpayment' ? '₱50k Down Payment' : 'Full Cash';
   const travelDateEl = document.getElementById('travelDate');
   const travelDateText = travelDateEl.options[travelDateEl.selectedIndex].text;
 
@@ -2453,22 +2416,7 @@ function generateBookingConfirmation(data) {
   const scheduleTitle = document.getElementById('bcPaymentScheduleTitle');
   const scheduleContent = document.getElementById('bcPaymentScheduleContent');
   const perHead = grandTotal / count;
-  if (selectedPayment === 'installment') {
-    const months = computeInstallmentMonths(travelDateVal);
-    const monthly = Math.ceil(perHead / months);
-    scheduleTitle.textContent = 'Payment Schedule — Monthly Installment';
-    let rows = '';
-    const startDate = new Date();
-    startDate.setDate(startDate.getDate()+1);
-    for (let m=0; m<months; m++) {
-      const d = new Date(startDate);
-      d.setMonth(d.getMonth()+m);
-      const dStr = d.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
-      rows += `<tr><td style="text-align:center;">${m+1}</td><td>${m===0?'First Payment':'Monthly Installment'}</td><td>${dStr}</td><td class="text-right font-bold">₱${monthly.toLocaleString()}</td></tr>`;
-    }
-    rows += `<tr class="total-row"><td></td><td style="font-weight:900;">TOTAL</td><td>Fully paid 3 months before departure</td><td class="text-right" style="font-size:0.95rem;">₱${perHead.toLocaleString()} /head</td></tr>`;
-    scheduleContent.innerHTML = `<table class="bc-pricing-table"><thead><tr><th>#</th><th>Payment</th><th>Due Date</th><th style="text-align:right;">Amount (Per Head)</th></tr></thead><tbody>${rows}</tbody></table><p class="bc-vat-note" style="margin-top:0.75rem;">Note: Prompt payment ensures uninterrupted processing of your visa application and travel arrangements.</p>`;
-  } else if (selectedPayment === 'downpayment') {
+  if (selectedPayment === 'downpayment') {
     scheduleTitle.textContent = 'Payment Schedule — ₱50k Down Payment';
     const balance = perHead - 50000;
     const dueDate = new Date(tourStart); dueDate.setMonth(dueDate.getMonth()-3);
