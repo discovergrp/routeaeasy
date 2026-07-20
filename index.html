@@ -2240,10 +2240,17 @@ function handleSubmit(e) {
   btn.textContent = 'Generating Confirmation...';
 
   setTimeout(() => {
-    generateBookingConfirmation({
-      firstName, middleName, lastName, suffix, gender, dob, contactNo, email, consultant
-    });
-    btn.textContent = '✓ Confirmation Generated';
+    try {
+      generateBookingConfirmation({
+        firstName, middleName, lastName, suffix, gender, dob, contactNo, email, consultant
+      });
+      btn.textContent = '✓ Confirmation Generated';
+    } catch(err) {
+      console.error('Booking confirmation error:', err);
+      btn.disabled = false;
+      btn.textContent = 'Submit Reservation Request';
+      showToast('An error occurred generating the confirmation. Please try again.', 'error');
+    }
   }, 800);
 
   return false;
@@ -2260,8 +2267,8 @@ function generateBookingConfirmation(data) {
   document.getElementById('bcDocRef').textContent = 'Document Reference: ' + refNum + ' | This is a system-generated booking confirmation.';
 
   // Package & payment info
-  const pkgType = currentPackage === 'full' ? 'Full Package (With Airfare)' : 'Land Arrangement Only';
-  const payScheme = currentPayment === 'installment' ? 'Monthly Installment' : currentPayment === 'downpayment' ? '₱50k Down Payment' : 'Full Cash';
+  const pkgType = selectedPackage === 'full' ? 'Full Package (With Airfare)' : 'Land Arrangement Only';
+  const payScheme = selectedPayment === 'installment' ? 'Monthly Installment' : selectedPayment === 'downpayment' ? '₱50k Down Payment' : 'Full Cash';
   const travelDateEl = document.getElementById('travelDate');
   const travelDateText = travelDateEl.options[travelDateEl.selectedIndex].text;
 
@@ -2316,7 +2323,7 @@ function generateBookingConfirmation(data) {
   document.getElementById('bcPassengerTable').innerHTML = passengerRows;
 
   // Package rate details
-  const standardRate = currentPackage === 'full' ? 125000 : 95000;
+  const standardRate = selectedPackage === 'full' ? 125000 : 95000;
   const count = travelers.length;
   document.getElementById('bcPackageDetails').innerHTML = [
     {label:'Package', val:'Route A Easy — 10 Days / 9 Nights'},
@@ -2334,7 +2341,8 @@ function generateBookingConfirmation(data) {
   const pricingRows = travelers.map((t,i) => {
     const dobVal = t.dob || data.dob;
     const cat = classifyAge(dobVal, tourStart, tourEnd);
-    const rate = getCategoryRate(cat, standardRate);
+    const rateObj = getCategoryRate(cat, standardRate);
+    const rate = rateObj.rate;
     const label = ((t.firstName||data.firstName)+' '+(t.lastName||data.lastName)).toUpperCase();
     const catBadge = cat !== 'adult' ? ` <span style="font-size:0.65rem;background:#f0f4ff;color:#003e8f;padding:0.1rem 0.4rem;border-radius:0.3rem;font-weight:700;">${getCategoryLabel(cat)}</span>` : '';
     grandTotal += rate;
@@ -2347,7 +2355,7 @@ function generateBookingConfirmation(data) {
   const scheduleTitle = document.getElementById('bcPaymentScheduleTitle');
   const scheduleContent = document.getElementById('bcPaymentScheduleContent');
   const perHead = grandTotal / count;
-  if (currentPayment === 'installment') {
+  if (selectedPayment === 'installment') {
     const months = computeInstallmentMonths(travelDateVal);
     const monthly = Math.ceil(perHead / months);
     scheduleTitle.textContent = 'Payment Schedule — Monthly Installment';
@@ -2362,7 +2370,7 @@ function generateBookingConfirmation(data) {
     }
     rows += `<tr class="total-row"><td></td><td style="font-weight:900;">TOTAL</td><td>Fully paid 3 months before departure</td><td class="text-right" style="font-size:0.95rem;">₱${perHead.toLocaleString()} /head</td></tr>`;
     scheduleContent.innerHTML = `<table class="bc-pricing-table"><thead><tr><th>#</th><th>Payment</th><th>Due Date</th><th style="text-align:right;">Amount (Per Head)</th></tr></thead><tbody>${rows}</tbody></table><p class="bc-vat-note" style="margin-top:0.75rem;">Note: Prompt payment ensures uninterrupted processing of your visa application and travel arrangements.</p>`;
-  } else if (currentPayment === 'downpayment') {
+  } else if (selectedPayment === 'downpayment') {
     scheduleTitle.textContent = 'Payment Schedule — ₱50k Down Payment';
     const balance = perHead - 50000;
     const dueDate = new Date(tourStart); dueDate.setMonth(dueDate.getMonth()-3);
