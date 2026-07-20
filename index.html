@@ -1638,6 +1638,12 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
         <div class="bc-section-title">Booking Confirmation — Route A Easy</div>
         <div class="bc-details-grid" id="bcClientDetails"></div>
 
+        <!-- Special Requests / Notes -->
+        <div id="bcNotesSection" style="display:none;margin-bottom:1.5rem;">
+          <div class="bc-section-title">Special Requests / Notes</div>
+          <div id="bcNotesContent" style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:1rem 1.25rem;font-size:0.95rem;color:#334155;white-space:pre-wrap;"></div>
+        </div>
+
         <!-- Passenger Information -->
         <div class="bc-section-title">Passenger Information</div>
         <div style="overflow-x:auto;margin-bottom:2rem;">
@@ -2229,6 +2235,7 @@ function handleSubmit(e) {
   const contactNo = document.getElementById('contactNo').value.trim();
   const email = document.getElementById('email').value.trim();
   const consultant = document.getElementById('travelConsultant').value;
+  const notes = document.getElementById('notes').value.trim();
 
   if (!firstName || !lastName || !gender || !dob || !contactNo || !email || !consultant) {
     showToast('Please fill in all required fields including Travel Consultant.', 'error');
@@ -2242,7 +2249,7 @@ function handleSubmit(e) {
   setTimeout(() => {
     try {
       generateBookingConfirmation({
-        firstName, middleName, lastName, suffix, gender, dob, contactNo, email, consultant
+        firstName, middleName, lastName, suffix, gender, dob, contactNo, email, consultant, notes
       });
       btn.textContent = '✓ Confirmation Generated';
     } catch(err) {
@@ -2303,6 +2310,16 @@ function generateBookingConfirmation(data) {
     {label:'Travel Consultant', val:data.consultant, hi:false},
   ].map(({label,val,hi}) => `<div class="bc-detail-item"><label>${label}</label><p${hi?' class="highlight"':''}>${val}</p></div>`).join('');
   document.getElementById('bcClientDetails').innerHTML = clientDetailsHtml;
+
+  // Special Requests / Notes
+  const notesSection = document.getElementById('bcNotesSection');
+  const notesContent = document.getElementById('bcNotesContent');
+  if (data.notes && data.notes.trim()) {
+    notesContent.textContent = data.notes.trim();
+    notesSection.style.display = 'block';
+  } else {
+    notesSection.style.display = 'none';
+  }
 
   // Passenger table
   const travelers = collectAllTravelers(data);
