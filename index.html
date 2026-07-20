@@ -1489,7 +1489,7 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
       </div>
       <div class="form-grid-2">
         <div class="form-group"><label>Number of Travelers</label><select id="travelersCount" onchange="updateTravelers()"><option value="1">1 Person</option><option value="2">2 Persons</option><option value="3">3 Persons</option><option value="4">4 Persons</option><option value="5">5 Persons</option><option value="6">6+ Persons</option></select></div>
-        <div class="form-group"><label>Travel Date *</label><select id="travelDate" required onchange="recalculate()"><option value="2027-03-12" selected>March 12 – 21, 2027</option></select></div>
+        <div class="form-group"><label>Travel Date *</label><select id="travelDate" required onchange="recalculate()"><option value="2027-03-12" selected>March 12 – 21, 2027</option><option value="2027-09-30">September 30 – October 9, 2027</option></select></div>
       </div>
 
       <!-- Travel Consultant -->
@@ -1935,7 +1935,8 @@ const ITINERARY = [
 
 // ==================== TRAVEL DATES ====================
 const TRAVEL_DATES = {
-  "2027-03-12": { start: "2027-03-12", end: "2027-03-21" }
+  "2027-03-12": { start: "2027-03-12", end: "2027-03-21" },
+  "2027-09-30": { start: "2027-09-30", end: "2027-10-09" }
 };
 
 // ==================== STATE ====================
