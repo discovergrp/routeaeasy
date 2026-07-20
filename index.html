@@ -2216,9 +2216,9 @@ function handleSubmit(e) {
   const count = parseInt(document.getElementById('travelersCount').value) || 1;
   const standardRate = selectedPackage === 'full' ? 125000 : 95000;
 
-  // Build all travelers array
+  // Build all travelers array — additional travelers use data-idx starting from 2 (matching updateTravelers)
   const allTravelers = [{ firstName, middleName, lastName, suffix, gender, dob, contact: contactNo, email }];
-  for (let i = 1; i < count && i < 6; i++) {
+  for (let i = 2; i <= Math.min(count, 6); i++) {
     const fn = document.querySelector(`.traveler-field[data-idx="${i}"][data-field="firstName"]`);
     if (fn) {
       allTravelers.push({
@@ -2228,7 +2228,8 @@ function handleSubmit(e) {
         suffix: (document.querySelector(`.traveler-field[data-idx="${i}"][data-field="suffix"]`) || {}).value || 'None',
         gender: (document.querySelector(`.traveler-field[data-idx="${i}"][data-field="gender"]`) || {}).value || '',
         dob: (document.querySelector(`.traveler-field[data-idx="${i}"][data-field="dob"]`) || {}).value || '',
-        contact: contactNo, email
+        contact: (document.querySelector(`.traveler-field[data-idx="${i}"][data-field="contact"]`) || {}).value || contactNo,
+        email: (document.querySelector(`.traveler-field[data-idx="${i}"][data-field="email"]`) || {}).value || email
       });
     }
   }
@@ -2458,9 +2459,9 @@ function collectAllTravelers(data) {
     contact: data.contactNo,
     email: data.email
   }];
-  // Additional travelers
+  // Additional travelers — data-idx starts from 2 (matching updateTravelers rendering)
   const count = parseInt(document.getElementById('travelersCount').value) || 1;
-  for (let i=1; i<count && i<6; i++) {
+  for (let i=2; i<=Math.min(count,6); i++) {
     const fn = document.querySelector(`.traveler-field[data-idx="${i}"][data-field="firstName"]`);
     if (fn) {
       travelers.push({
@@ -2470,8 +2471,8 @@ function collectAllTravelers(data) {
         suffix: (document.querySelector(`.traveler-field[data-idx="${i}"][data-field="suffix"]`)||{}).value||'None',
         gender: (document.querySelector(`.traveler-field[data-idx="${i}"][data-field="gender"]`)||{}).value||'',
         dob: (document.querySelector(`.traveler-field[data-idx="${i}"][data-field="dob"]`)||{}).value||'',
-        contact: data.contactNo,
-        email: data.email
+        contact: (document.querySelector(`.traveler-field[data-idx="${i}"][data-field="contact"]`)||{}).value||data.contactNo,
+        email: (document.querySelector(`.traveler-field[data-idx="${i}"][data-field="email"]`)||{}).value||data.email
       });
     }
   }
