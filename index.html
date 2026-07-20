@@ -58,6 +58,114 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
 }
 
 /* ============================================================
+   BOOKING CONFIRMATION STYLES
+   ============================================================ */
+.bc-page-wrap { background: #e8edf5; padding: 2rem 1rem; min-height: 100vh; }
+.booking-confirmation { max-width: 860px; margin: 0 auto; background: white; border-radius: 1rem; overflow: hidden; box-shadow: 0 8px 40px rgba(0,62,143,0.15); }
+.bc-header { background: var(--primary); color: white; padding: 2rem 2.5rem; }
+.bc-header-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.bc-header-left { display: flex; align-items: center; gap: 1rem; }
+.bc-header-left img { height: 48px; width: 48px; border-radius: 6px; object-fit: cover; border: 2px solid rgba(255,255,255,0.3); }
+.bc-header-left h2 { font-size: 1.4rem; font-family: 'Playfair Display', serif; font-weight: 700; color: white; }
+.bc-header-left .sub { font-size: 0.7rem; color: rgba(255,255,255,0.75); margin-top: 2px; }
+.bc-header-right { text-align: right; }
+.bc-badge { display: inline-block; background: var(--accent); color: var(--primary-dark); font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; padding: 0.35rem 0.9rem; border-radius: 2rem; }
+.bc-header-right .date { font-size: 0.65rem; color: rgba(255,255,255,0.65); margin-top: 0.4rem; }
+.bc-header-contact { display: flex; flex-wrap: wrap; gap: 1.5rem; margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.15); font-size: 0.7rem; color: rgba(255,255,255,0.75); }
+.bc-body { padding: 2rem 2.5rem; }
+.bc-section-title { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: var(--primary); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; font-family: 'Inter', sans-serif; }
+.bc-section-title::before { content: ''; width: 4px; height: 20px; background: var(--primary); border-radius: 2px; }
+.bc-details-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem 1.5rem; margin-bottom: 2rem; }
+@media(max-width:640px) { .bc-details-grid { grid-template-columns: 1fr; } }
+.bc-detail-item label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #6b7a94; display: block; margin-bottom: 0.2rem; }
+.bc-detail-item p { font-size: 0.85rem; color: #1a2744; font-weight: 500; }
+.bc-detail-item p.highlight { font-weight: 700; color: var(--primary); }
+.bc-table { width: 100%; border-collapse: collapse; font-size: 0.75rem; margin-bottom: 2rem; border: 1px solid #e8edf5; border-radius: 0.5rem; overflow: hidden; }
+.bc-table thead tr { background: rgba(0,62,143,0.05); }
+.bc-table th { padding: 0.6rem 0.75rem; text-align: left; font-weight: 700; color: var(--primary); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid #e8edf5; }
+.bc-table td { padding: 0.5rem 0.75rem; border-bottom: 1px solid #f1f5f9; color: #374151; }
+.bc-table tbody tr:last-child td { border-bottom: none; }
+.bc-table .font-bold { font-weight: 700; }
+.bc-table .mono { font-family: 'Inter', monospace; color: #6b7a94; }
+.bc-pricing-section { margin-bottom: 2rem; }
+.bc-pricing-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; border: 1px solid #e8edf5; border-radius: 0.5rem; overflow: hidden; }
+.bc-pricing-table thead tr { background: rgba(0,62,143,0.05); }
+.bc-pricing-table th { padding: 0.6rem 0.75rem; font-weight: 700; color: var(--primary); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid #e8edf5; text-align: left; }
+.bc-pricing-table td { padding: 0.6rem 0.75rem; border-bottom: 1px solid #f1f5f9; color: #374151; }
+.bc-pricing-table .text-right { text-align: right; }
+.bc-pricing-table .text-center { text-align: center; }
+.bc-pricing-table .font-bold { font-weight: 700; }
+.bc-pricing-table .total-row td { background: rgba(0,62,143,0.04); font-weight: 800; color: var(--primary); font-size: 0.85rem; border-top: 2px solid var(--primary); }
+.bc-pricing-table .total-row .text-right { color: var(--accent); font-size: 1rem; font-weight: 900; }
+.bc-vat-note { font-size: 0.7rem; font-style: italic; color: #6b7a94; margin-top: 0.5rem; }
+.bc-benefits { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 2rem; }
+.bc-benefit { display: flex; align-items: flex-start; gap: 0.75rem; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 0.5rem; padding: 0.75rem 1rem; }
+.bc-benefit .icon { color: #16a34a; font-weight: 900; font-size: 1rem; margin-top: 1px; }
+.bc-benefit .title { font-size: 0.8rem; font-weight: 700; color: #15803d; }
+.bc-benefit .desc { font-size: 0.75rem; color: #166534; }
+.bc-separator { height: 1px; background: #e8edf5; margin: 1.5rem 0; }
+.bc-bank-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem; }
+@media(max-width:640px) { .bc-bank-grid { grid-template-columns: 1fr; } }
+.bc-bank-card { background: #f8fafc; border-radius: 0.75rem; padding: 1rem 1.25rem; border: 1px solid #e2e8f0; }
+.bc-bank-card .bank-name { font-size: 0.8rem; font-weight: 800; color: #1a2744; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.15rem; }
+.bc-bank-card .bank-full { font-size: 0.65rem; color: #6b7a94; margin-bottom: 0.15rem; }
+.bc-bank-card .bank-acct-name { font-size: 0.7rem; color: #374151; margin-bottom: 0.4rem; }
+.bc-bank-card .bank-number { font-size: 1rem; font-weight: 800; color: #1a2744; font-family: 'Inter', monospace; letter-spacing: 0.1em; }
+.bc-payment-schedule { margin-bottom: 2rem; }
+.bc-tc-container { margin-bottom: 2rem; }
+.bc-tc-scroll { max-height: 300px; overflow-y: auto; border: 1px solid #e8edf5; border-radius: 0.5rem; padding: 1.25rem 1.5rem; font-size: 0.75rem; color: #374151; line-height: 1.8; background: #fafbff; }
+.bc-tc-scroll h3 { font-size: 0.8rem; font-weight: 800; color: var(--primary); margin: 1rem 0 0.5rem; font-family: 'Inter', sans-serif; }
+.bc-tc-scroll p { margin-bottom: 0.5rem; }
+.bc-tc-scroll p.indent { padding-left: 1.5rem; }
+.bc-agreement { background: #f0f4ff; border: 1px solid rgba(0,62,143,0.2); border-radius: 0.75rem; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; }
+.bc-agreement label { display: flex; align-items: flex-start; gap: 0.75rem; cursor: pointer; font-size: 0.8rem; color: #1a2744; line-height: 1.6; }
+.bc-agreement input[type=checkbox] { margin-top: 2px; width: 16px; height: 16px; flex-shrink: 0; accent-color: var(--primary); }
+.bc-signature-section { margin-bottom: 2rem; }
+.bc-signature-intro { font-size: 0.75rem; color: #6b7a94; line-height: 1.6; margin-bottom: 1.5rem; }
+.bc-signature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+@media(max-width:640px) { .bc-signature-grid { grid-template-columns: 1fr; } }
+.bc-sig-box { border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.25rem; }
+.bc-sig-label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #6b7a94; margin-bottom: 0.75rem; }
+.bc-sig-canvas-wrap { position: relative; border: 2px dashed #cbd5e1; border-radius: 0.5rem; background: #f8fafc; margin-bottom: 0.5rem; }
+.bc-sig-canvas-wrap canvas { display: block; width: 100%; cursor: crosshair; }
+.bc-sig-placeholder { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-size: 0.75rem; color: #94a3b8; pointer-events: none; text-align: center; white-space: nowrap; }
+.bc-sig-actions { margin-bottom: 0.75rem; }
+.bc-sig-clear { background: none; border: 1px solid #e2e8f0; border-radius: 0.4rem; padding: 0.3rem 0.75rem; font-size: 0.7rem; color: #6b7a94; cursor: pointer; }
+.bc-sig-clear:hover { background: #f1f5f9; }
+.bc-sig-info .name { font-size: 0.8rem; font-weight: 700; color: #1a2744; }
+.bc-sig-info .date { font-size: 0.7rem; color: #6b7a94; }
+.bc-sig-consultant { background: #f8fafc; border-radius: 0.5rem; padding: 2rem 1rem; text-align: center; margin-bottom: 0.75rem; }
+.bc-sig-consultant p { font-size: 0.75rem; color: #94a3b8; font-style: italic; }
+.bc-submit-section { text-align: center; margin: 1.5rem 0; }
+.bc-submit-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.85rem 2rem; background: var(--primary); color: white; border: none; border-radius: 0.5rem; font-size: 0.9rem; font-weight: 700; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 12px rgba(0,62,143,0.3); }
+.bc-submit-btn:hover { background: var(--primary-light); transform: translateY(-1px); }
+.bc-submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+.bc-submit-status { font-size: 0.75rem; margin-top: 0.75rem; }
+.bc-submit-status.ready { color: #16a34a; font-weight: 700; }
+.bc-submit-status.pending { color: #6b7a94; }
+.bc-footer { background: var(--primary-dark); color: rgba(255,255,255,0.8); padding: 1.5rem 2.5rem; text-align: center; font-size: 0.75rem; line-height: 1.8; }
+.bc-footer .company { font-weight: 700; color: white; font-size: 0.85rem; margin-bottom: 0.25rem; }
+.bc-actions { display: flex; gap: 1rem; justify-content: center; margin-top: 1.25rem; flex-wrap: wrap; }
+.btn-print { padding: 0.65rem 1.5rem; background: var(--accent); color: var(--primary-dark); border: none; border-radius: 0.5rem; font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+.btn-print:hover { background: var(--accent-hover); }
+.btn-print:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-new { padding: 0.65rem 1.5rem; background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.3); border-radius: 0.5rem; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+.btn-new:hover { background: rgba(255,255,255,0.2); }
+.bc-package-print { display: none; }
+@media print {
+  body > *:not(#booking-confirmation-page) { display: none !important; }
+  #booking-confirmation-page { display: block !important; }
+  .bc-page-wrap { background: white; padding: 0; }
+  .booking-confirmation { box-shadow: none; border-radius: 0; }
+  .bc-submit-section { display: none !important; }
+  .bc-actions { display: none !important; }
+  .bc-tc-scroll { max-height: none; overflow: visible; }
+  .bc-package-print { display: block !important; }
+  .bc-package-buttons { display: none !important; }
+  .bc-sig-canvas-wrap canvas { border: 1px solid #ccc; }
+}
+
+/* ============================================================
    HEADER
    ============================================================ */
 .header {
@@ -1040,6 +1148,7 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
 </head>
 <body>
 
+<div id="main-page">
 <!-- Header -->
 <header class="header">
   <div class="header-inner">
@@ -1210,6 +1319,22 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
         <div class="form-group"><label>Travel Date *</label><select id="travelDate" required onchange="recalculate()"><option value="2027-03-12" selected>March 12 – 21, 2027</option></select></div>
       </div>
 
+      <!-- Travel Consultant -->
+      <div class="form-group" style="margin-bottom:1.5rem;">
+        <label>Travel Consultant *</label>
+        <select id="travelConsultant" required>
+          <option value="">Select your Travel Consultant</option>
+          <option value="Genesis">Genesis</option>
+          <option value="Janna">Janna</option>
+          <option value="Jhoanna">Jhoanna</option>
+          <option value="Kath">Kath</option>
+          <option value="Mitch">Mitch</option>
+          <option value="Nica">Nica</option>
+          <option value="Pia">Pia</option>
+          <option value="Tin">Tin</option>
+        </select>
+      </div>
+
       <!-- Additional Travelers -->
       <div class="additional-travelers" id="additional-travelers" style="display:none;">
         <h4>👥 Additional Traveler Details</h4>
@@ -1299,8 +1424,268 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
   <div class="footer-bottom">© 2026 Discover Group of Travel Services Incorporated. All Rights Reserved.</div>
 </footer>
 
+</div><!-- /#main-page -->
+
 <!-- Toast -->
 <div class="toast" id="toast"></div>
+
+<!-- ============================================================
+     BOOKING CONFIRMATION CONTRACT PAGE
+     ============================================================ -->
+<div id="booking-confirmation-page" style="display:none;">
+  <div class="bc-page-wrap">
+    <div class="booking-confirmation">
+      <!-- Header -->
+      <div class="bc-header">
+        <div class="bc-header-top">
+          <div class="bc-header-left">
+            <img src="images/logo.jpg" alt="Discover Group">
+            <div>
+              <h2>Discover Group</h2>
+              <div class="sub">Travel Services Incorporated</div>
+            </div>
+          </div>
+          <div class="bc-header-right">
+            <div class="bc-badge">Official Booking Confirmation</div>
+            <div class="date" id="bcIssuedDate">Issued: —</div>
+          </div>
+        </div>
+        <div class="bc-header-contact">
+          <span>📞 0919-394-6919</span>
+          <span>📞 0960-312-3856</span>
+          <span>✉️ inquiry@discovergrp.com</span>
+          <span>🌐 discovergrp.com</span>
+        </div>
+      </div>
+
+      <!-- Body -->
+      <div class="bc-body">
+        <!-- Client Details -->
+        <div class="bc-section-title">Booking Confirmation — Route A Easy</div>
+        <div class="bc-details-grid" id="bcClientDetails"></div>
+
+        <!-- Passenger Information -->
+        <div class="bc-section-title">Passenger Information</div>
+        <div style="overflow-x:auto;margin-bottom:2rem;">
+          <table class="bc-table">
+            <thead><tr><th>#</th><th>First Name</th><th>Middle</th><th>Last Name</th><th>Suffix</th><th>Gender</th><th>Contact</th><th>Email</th><th>DOB</th></tr></thead>
+            <tbody id="bcPassengerTable"></tbody>
+          </table>
+        </div>
+
+        <!-- Package Rate -->
+        <div class="bc-section-title">Package Rate &amp; Booking Details</div>
+        <div class="bc-details-grid" id="bcPackageDetails" style="margin-bottom:1.5rem;"></div>
+
+        <!-- Pricing Breakdown -->
+        <div class="bc-section-title">Pricing Breakdown</div>
+        <div class="bc-pricing-section">
+          <div style="overflow-x:auto;">
+            <table class="bc-pricing-table">
+              <thead><tr><th>Description</th><th style="text-align:right;">Rate/Head</th><th style="text-align:center;">Pax</th><th style="text-align:right;">Total</th></tr></thead>
+              <tbody id="bcPricingTable"></tbody>
+            </table>
+          </div>
+          <p class="bc-vat-note">Prices quoted are exclusive of 12% VAT. A 12% VAT will be applied upon issuance of the Official Receipt (OR).</p>
+        </div>
+
+        <!-- Benefits -->
+        <div class="bc-section-title">Included Benefits &amp; Discounts</div>
+        <div class="bc-benefits">
+          <div class="bc-benefit"><span class="icon">✓</span><div><div class="title">Visa Denial Protection</div><div class="desc">100% Refund if visa is denied</div></div></div>
+        </div>
+
+        <!-- Package Details -->
+        <div class="bc-section-title">Package Details</div>
+        <div class="bc-package-buttons" style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1.5rem;">
+          <a href="#" onclick="openDetailPopup('inclusions');return false;" style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.6rem 1.2rem;background:#ecfdf5;border:1px solid #a7f3d0;border-radius:0.5rem;color:#16a34a;font-size:0.8rem;font-weight:700;text-decoration:none;">✓ Package Inclusions</a>
+          <a href="#" onclick="openDetailPopup('exclusions');return false;" style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.6rem 1.2rem;background:#fef2f2;border:1px solid #fecaca;border-radius:0.5rem;color:#dc2626;font-size:0.8rem;font-weight:700;text-decoration:none;">✕ Package Exclusions</a>
+          <a href="#" onclick="openDetailPopup('optionals');return false;" style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.6rem 1.2rem;background:#eff6ff;border:1px solid #bfdbfe;border-radius:0.5rem;color:#003e8f;font-size:0.8rem;font-weight:700;text-decoration:none;">◎ Optional Services</a>
+        </div>
+
+        <!-- Print-only package details -->
+        <div class="bc-package-print">
+          <div style="margin-bottom:1.5rem;">
+            <h4 style="font-size:0.85rem;font-weight:800;color:#16a34a;margin-bottom:0.5rem;border-bottom:2px solid #a7f3d0;padding-bottom:0.3rem;">✓ Package Inclusions</h4>
+            <ul style="font-size:0.75rem;color:#374151;padding-left:1.2rem;margin:0;line-height:1.8;">
+              <li>Round-trip airfare (Manila–Paris, Rome–Manila)</li>
+              <li>Round-trip airport transfers</li>
+              <li>Airport terminal fee</li>
+              <li>1pc 20kg check-in luggage + 1pc personal bag</li>
+              <li>9 nights hotel accommodation (3-star)</li>
+              <li>Visit France, Switzerland, Italy &amp; Vatican</li>
+              <li>Coach transfers all throughout the tour</li>
+              <li>Daily breakfast at the hotel</li>
+              <li>English-speaking tour guide</li>
+              <li>All city tours as per itinerary</li>
+            </ul>
+          </div>
+          <div style="margin-bottom:1.5rem;">
+            <h4 style="font-size:0.85rem;font-weight:800;color:#dc2626;margin-bottom:0.5rem;border-bottom:2px solid #fecaca;padding-bottom:0.3rem;">✕ Package Exclusions</h4>
+            <ul style="font-size:0.75rem;color:#374151;padding-left:1.2rem;margin:0;line-height:1.8;">
+              <li>Lunch and Dinner (for more diversity and freedom of food choices)</li>
+              <li>Mandatory permits, city tax &amp; compulsory tipping: EUR 525/head</li>
+              <li>Philippine Travel Tax: PHP 1,620/head</li>
+            </ul>
+          </div>
+          <div style="margin-bottom:1.5rem;">
+            <h4 style="font-size:0.85rem;font-weight:800;color:#003e8f;margin-bottom:0.5rem;border-bottom:2px solid #bfdbfe;padding-bottom:0.3rem;">◎ Optional Services</h4>
+            <ul style="font-size:0.75rem;color:#374151;padding-left:1.2rem;margin:0;line-height:1.8;">
+              <li>Visa assistance fee &amp; appointment fee: PHP 20,000/pax</li>
+              <li>Travel Insurance: PHP 6,000/pax</li>
+              <li>Admission fees and Optional tours/activities</li>
+              <li>Hotel room upgrade (subject to availability)</li>
+              <li>Extra luggage allowance (airline rates apply)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="bc-separator"></div>
+
+        <!-- Bank Details -->
+        <div class="bc-section-title">Official Bank Accounts</div>
+        <p style="font-size:0.75rem;color:#6b7a94;margin-bottom:1rem;">All payments must be made exclusively to the Company's official bank accounts below. Payments to unauthorized accounts will not be recognized.</p>
+        <div class="bc-bank-grid">
+          <div class="bc-bank-card"><div class="bank-name">BPI</div><div class="bank-full">Bank of the Philippine Islands</div><div class="bank-acct-name">Discover Group of Travel Services Inc.</div><div class="bank-number">1491 0000 38</div></div>
+          <div class="bc-bank-card"><div class="bank-name">UNIONBANK</div><div class="bank-full">Union Bank of the Philippines</div><div class="bank-acct-name">Discover Group of Travel Services Inc.</div><div class="bank-number">0017 8000 3393</div></div>
+          <div class="bc-bank-card"><div class="bank-name">MAYBANK</div><div class="bank-full">Maybank Philippines</div><div class="bank-acct-name">Discover Group of Travel Services Inc.</div><div class="bank-number">0011 4500 0780</div></div>
+        </div>
+
+        <div class="bc-separator"></div>
+
+        <!-- Payment Schedule -->
+        <div class="bc-payment-schedule">
+          <div class="bc-section-title" id="bcPaymentScheduleTitle">Payment Schedule</div>
+          <div id="bcPaymentScheduleContent"></div>
+        </div>
+
+        <div class="bc-separator"></div>
+
+        <!-- Important Reminders -->
+        <div class="bc-section-title">Important Reminders</div>
+        <div style="font-size:0.75rem;color:#374151;line-height:1.8;margin-bottom:2rem;">
+          <p style="margin-bottom:0.5rem;"><strong>Visa Denial Protection:</strong> In the event of a visa denial, a 100% refund of the tour package payment will be processed within 180 banking days from the date of written acknowledgment.</p>
+          <p style="margin-bottom:0.5rem;"><strong>Payment Terms:</strong> Billing starts upon initial payment or signing of the booking confirmation. Late installment payments may incur penalties.</p>
+          <p style="margin-bottom:0.5rem;"><strong>Age-Based Discounts:</strong> Senior (60+) and Child (2–5) receive ₱5,000 off per head. Infants (0–23 months) are charged a flat ₱50,000. Age is computed based on the tour end date.</p>
+          <p><strong>Cancellation:</strong> Cancellations within 90 days of departure are subject to a non-refundable fee of PHP 30,000 per head.</p>
+        </div>
+
+        <div class="bc-separator"></div>
+
+        <!-- Terms and Conditions -->
+        <div class="bc-tc-container">
+          <div class="bc-section-title">Terms and Conditions</div>
+          <div class="bc-tc-scroll" id="tcScrollBox">
+            <p>These Terms and Conditions ("Agreement") govern your use of the travel services provided by Discover Group ("Discover," "we," or "our"). By accessing or using our services, you agree to be bound by these terms. Please read this Agreement carefully before proceeding.</p>
+            <h3>Definitions</h3>
+            <p>"Discover Group" refers to the travel services provided by our company.</p>
+            <p>"Customer(s)," "passenger", "client", "you," or "your" refers to any individual or entity using our travel services.</p>
+            <p>"Service(s)" refers to the travel services, including but not limited to flight bookings, hotel reservations, car rentals, vacation packages, and travel insurance, provided by Discover Group.</p>
+            <h3>Booking and Reservations</h3>
+            <p>By using our services, you acknowledge that Discover Group acts as an intermediary between you and various travel service providers (e.g., airlines, hotels, car rental companies), and your bookings and reservations are subject to the terms and conditions of these providers.</p>
+            <p>The contact person is the one responsible for the package of all participants listed above.</p>
+            <p>All bookings and reservations made through Discover Group are subject to availability and confirmation by the relevant travel service providers.</p>
+            <h3>Payment Terms</h3>
+            <p>Full payment or a deposit may be required at the time of booking, depending on the travel service and provider.</p>
+            <p>Billing start date shall be upon signing of Booking Confirmation. In the absence of signed Booking confirmation, service shall be deemed automatically accepted upon initial payment together with the terms and conditions.</p>
+            <p>If a partial payment is made, the remaining balance must be settled based on given deadline on the booking confirmation. Failure to settle the remaining balance within this timeframe may result in cancellation charges or cancellation of all bookings reserved.</p>
+            <p>Please deposit the required down payment to temporarily hold your reservation. Your booking is only guaranteed once payment deadline is met. Failure to meet monthly deadline is subject to late penalty fee and may result to booking cancellation.</p>
+            <h3>Cancellation and Refund Policy</h3>
+            <p>Cancellations made 90 days or more before the scheduled departure date: Non-refundable fee of PHP 30,000 per head.</p>
+            <p class="indent">A. 90 days before departure: PHP 30,000 non-refundable per head</p>
+            <p class="indent">B. 61–89 days before departure: 50% of total package cost non-refundable</p>
+            <p class="indent">C. 31–60 days before departure: 75% of total package cost non-refundable</p>
+            <p class="indent">D. 0–30 days before departure: 100% non-refundable</p>
+            <p class="indent">E. 61 days onwards will lead to automatic cancellation of booking</p>
+            <h3>Visa Denial Protection</h3>
+            <p>In the event that a visa application is denied, Discover Group will process a 100% refund of the tour package payment within 180 banking days from the date of written acknowledgment of the visa denial.</p>
+            <p>Visa result must be released 90 days prior departure. In the event that visa is not yet released, rebooking should be made for a fee of Php 10,000 per person and travel date must be at least 180 days from the time of rebooking.</p>
+            <h3>Age-Based Discounts and Special Rates</h3>
+            <p>Discover Group extends preferential pricing to qualified travelers based on age classification at the time of travel:</p>
+            <p class="indent">a. Senior Citizen (60 years of age or older): Discount of Php 5,000 per qualifying senior traveler.</p>
+            <p class="indent">b. Child (2 to 6 years of age): Discount of Php 5,000 per qualifying child traveler.</p>
+            <p class="indent">c. Infant (0 to 1 year and 11 months): Flat rate of Php 50,000 in lieu of the standard package rate.</p>
+            <p>Age category shall be based exclusively on the traveler's age as of the confirmed departure date.</p>
+            <h3>Lost Luggage and Waiting Time</h3>
+            <p>If your luggage is lost during transit, Discover Group will NOT assist in filing a claim with the relevant airline or transportation provider. Claims should be pursued directly with the airline.</p>
+            <h3>Cancellation Due to Participant Misconduct</h3>
+            <p>Participants are expected to maintain respectful and appropriate behavior throughout the tour. Discover Group reserves the right to cancel the participant's involvement in the tour due to misconduct without any entitlement to a refund or compensation.</p>
+            <h3>Bank Details</h3>
+            <p>All payments to Discover Group of Travel Services Inc. must be made exclusively to the Company's official and designated bank account(s). Any payment made to any other bank account, personal account, third-party account, or unauthorized channel shall not be recognized.</p>
+            <p style="margin-top:1.5rem;text-align:center;font-size:0.6rem;color:#94a3b8;">032626 v.4 — Discover Group of Travel Services Incorporated</p>
+          </div>
+        </div>
+
+        <!-- Agreement Checkbox -->
+        <div class="bc-agreement" id="bcAgreementBox">
+          <label>
+            <input type="checkbox" id="bcAcceptTerms" onchange="handleTermsCheck(this)">
+            <span>I have read, understood, and agree to the <strong>Terms and Conditions</strong> of the Route A Easy package as stated above. I acknowledge that the information provided in this booking confirmation is accurate and complete.</span>
+          </label>
+        </div>
+
+        <div class="bc-separator"></div>
+
+        <!-- Signature Section -->
+        <div class="bc-signature-section">
+          <div class="bc-section-title">Agreement &amp; Signature</div>
+          <p class="bc-signature-intro">By signing below, I confirm that I have read, understood, and agree to all terms and conditions stated in this booking confirmation. I acknowledge that the information provided above is accurate and complete.</p>
+          <div class="bc-signature-grid">
+            <div class="bc-sig-box">
+              <div class="bc-sig-label">Client Signature</div>
+              <div class="bc-sig-canvas-wrap" id="sigCanvasWrap">
+                <canvas id="signatureCanvas" width="377" height="120"></canvas>
+                <div class="bc-sig-placeholder" id="sigPlaceholder">Sign here with your finger or mouse</div>
+              </div>
+              <div class="bc-sig-actions">
+                <button class="bc-sig-clear" onclick="clearSignature()">✕ Clear</button>
+              </div>
+              <div class="bc-sig-info">
+                <p class="name" id="bcClientName">—</p>
+                <p class="date" id="bcDateSigned">—</p>
+              </div>
+            </div>
+            <div class="bc-sig-box">
+              <div class="bc-sig-label">Travel Consultant</div>
+              <div class="bc-sig-consultant"><p>For office use only</p></div>
+              <div class="bc-sig-info">
+                <p class="name" id="bcConsultantName">—</p>
+                <p class="date">Position: Travel Consultant</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="bc-submit-section" id="bcSubmitSection">
+          <button class="bc-submit-btn" id="bcSubmitBtn" disabled onclick="submitSignedConfirmation()">✍️ Submit Signed Confirmation</button>
+          <p class="bc-submit-status pending" id="bcSubmitStatus">Please accept the terms and sign above to submit</p>
+        </div>
+      </div>
+
+      <!-- BC Footer -->
+      <div class="bc-footer">
+        <p class="company">Discover Group of Travel Services Incorporated</p>
+        <p>The Upper Class Tower, Quezon Ave &amp; Sct Reyes Corner, Quezon City, Metro Manila, Philippines</p>
+        <p>📞 0919-394-6919 | 0960-312-3856 | 0960-582-7673</p>
+        <p>✉️ inquiry@discovergrp.com | traveldesk@discovergrp.com</p>
+        <p style="margin-top:0.75rem;font-size:0.65rem;color:rgba(255,255,255,0.5);" id="bcDocRef">Document Reference: — | This is a system-generated booking confirmation.</p>
+        <div class="bc-actions">
+          <button class="btn-print" id="bcPrintBtn" onclick="window.print()" disabled style="opacity:0.5;cursor:not-allowed;">🖨️ Print / Save as PDF</button>
+          <button class="btn-new" onclick="backToSalesPage()">← Back to Sales Page</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Detail Popup Modal -->
+<div id="detailPopupOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;align-items:center;justify-content:center;padding:1rem;">
+  <div style="background:white;border-radius:1.5rem;padding:2rem;max-width:480px;width:100%;max-height:90vh;overflow-y:auto;position:relative;">
+    <button onclick="closeDetailPopup()" style="position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.5rem;cursor:pointer;color:#6b7a94;">×</button>
+    <div id="detailPopupContent"></div>
+  </div>
+</div>
 
 <script>
 // ==================== ITINERARY DATA ====================
@@ -1644,30 +2029,380 @@ function handleSubmit(e) {
   const agree = document.getElementById('agree').checked;
   if (!agree) { showToast('Please confirm the checkbox before submitting.', 'error'); return false; }
 
-  const data = {
-    firstName: document.getElementById('firstName').value,
-    lastName: document.getElementById('lastName').value,
-    gender: document.getElementById('gender').value,
-    dob: document.getElementById('dob').value,
-    contactNo: document.getElementById('contactNo').value,
-    email: document.getElementById('email').value,
-  };
+  const firstName = document.getElementById('firstName').value.trim();
+  const middleName = document.getElementById('middleName').value.trim();
+  const lastName = document.getElementById('lastName').value.trim();
+  const suffix = document.getElementById('suffix').value;
+  const gender = document.getElementById('gender').value;
+  const dob = document.getElementById('dob').value;
+  const contactNo = document.getElementById('contactNo').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const consultant = document.getElementById('travelConsultant').value;
 
-  if (!data.firstName || !data.lastName || !data.gender || !data.dob || !data.contactNo || !data.email) {
-    showToast('Please fill in all required fields.', 'error');
+  if (!firstName || !lastName || !gender || !dob || !contactNo || !email || !consultant) {
+    showToast('Please fill in all required fields including Travel Consultant.', 'error');
     return false;
   }
 
   const btn = document.getElementById('submit-btn');
   btn.disabled = true;
-  btn.textContent = 'Submitting...';
+  btn.textContent = 'Generating Confirmation...';
 
   setTimeout(() => {
-    showToast('Reservation request submitted successfully! We will contact you within 24 hours.');
-    btn.textContent = '✓ Submitted Successfully';
-  }, 1500);
+    generateBookingConfirmation({
+      firstName, middleName, lastName, suffix, gender, dob, contactNo, email, consultant
+    });
+    btn.textContent = '✓ Confirmation Generated';
+  }, 800);
 
   return false;
+}
+
+// ==================== BOOKING CONFIRMATION ====================
+function generateBookingConfirmation(data) {
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  const refNum = 'ROUTEAEASY-' + now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + String(now.getDate()).padStart(2,'0') + '-' + Math.floor(1000+Math.random()*9000);
+
+  // Issued date
+  document.getElementById('bcIssuedDate').textContent = 'Issued: ' + dateStr + ' | Ref: ' + refNum;
+  document.getElementById('bcDocRef').textContent = 'Document Reference: ' + refNum + ' | This is a system-generated booking confirmation.';
+
+  // Package & payment info
+  const pkgType = currentPackage === 'full' ? 'Full Package (With Airfare)' : 'Land Arrangement Only';
+  const payScheme = currentPayment === 'installment' ? 'Monthly Installment' : currentPayment === 'downpayment' ? '₱50k Down Payment' : 'Full Cash';
+  const travelDateEl = document.getElementById('travelDate');
+  const travelDateText = travelDateEl.options[travelDateEl.selectedIndex].text;
+
+  // Client details grid
+  const fullName = (data.firstName + ' ' + (data.middleName ? data.middleName + ' ' : '') + data.lastName + (data.suffix && data.suffix !== 'None' ? ' ' + data.suffix : '')).toUpperCase();
+  document.getElementById('bcClientName').textContent = fullName;
+  document.getElementById('bcDateSigned').textContent = 'Date Signed: ' + dateStr;
+  document.getElementById('bcConsultantName').textContent = data.consultant;
+
+  document.getElementById('bcClientDetails').innerHTML = [
+    ['Contact Person', fullName, true],
+    ['Contact Number', data.contactNo, false],
+    ['Email Address', data.email, false],
+    ['Date of Birth', formatDOB(data.dob), false],
+    ['Gender', data.gender, false],
+    ['Tour Package', pkgType, true],
+    ['Travel Date', travelDateText, true],
+    ['Payment Scheme', payScheme, false],
+    ['Travel Consultant', data.consultant, false],
+  ].map(([label, val, hi]) => `<div class="bc-detail-item"><label>${label}</label><p class="${hi?'highlight':''}">$${val}</p></div>`).join('').replace(/\$\$/g,'$').replace(/\$(.*?)<\/p>/g, (m,v) => m.replace('$',''));
+
+  // Fix the template above properly
+  const clientDetailsHtml = [
+    {label:'Contact Person', val:fullName, hi:true},
+    {label:'Contact Number', val:data.contactNo, hi:false},
+    {label:'Email Address', val:data.email, hi:false},
+    {label:'Date of Birth', val:formatDOB(data.dob), hi:false},
+    {label:'Gender', val:data.gender, hi:false},
+    {label:'Tour Package', val:pkgType, hi:true},
+    {label:'Travel Date', val:travelDateText, hi:true},
+    {label:'Payment Scheme', val:payScheme, hi:false},
+    {label:'Travel Consultant', val:data.consultant, hi:false},
+  ].map(({label,val,hi}) => `<div class="bc-detail-item"><label>${label}</label><p${hi?' class="highlight"':''}>${val}</p></div>`).join('');
+  document.getElementById('bcClientDetails').innerHTML = clientDetailsHtml;
+
+  // Passenger table
+  const travelers = collectAllTravelers(data);
+  const passengerRows = travelers.map((t,i) => {
+    const dobFormatted = t.dob ? formatDOB(t.dob) : (i===0 ? formatDOB(data.dob) : '—');
+    return `<tr>
+      <td style="font-weight:700;">${i+1}</td>
+      <td class="font-bold">${(t.firstName||'').toUpperCase()}</td>
+      <td>${t.middleName||'—'}</td>
+      <td class="font-bold">${(t.lastName||'').toUpperCase()}</td>
+      <td>${t.suffix&&t.suffix!=='None'?t.suffix:'—'}</td>
+      <td>${t.gender||'—'}</td>
+      <td class="mono">${t.contact||data.contactNo}</td>
+      <td class="mono">${t.email||data.email}</td>
+      <td class="mono">${dobFormatted}</td>
+    </tr>`;
+  }).join('');
+  document.getElementById('bcPassengerTable').innerHTML = passengerRows;
+
+  // Package rate details
+  const standardRate = currentPackage === 'full' ? 125000 : 95000;
+  const count = travelers.length;
+  document.getElementById('bcPackageDetails').innerHTML = [
+    {label:'Package', val:'Route A Easy — 10 Days / 9 Nights'},
+    {label:'Standard Rate', val:'₱'+standardRate.toLocaleString()+' per head', hi:true},
+    {label:'Destinations', val:'France, Switzerland, Italy &amp; Vatican'},
+    {label:'Total Passengers', val:count+' person(s)'},
+  ].map(({label,val,hi}) => `<div class="bc-detail-item"><label>${label}</label><p${hi?' class="highlight"':''}>${val}</p></div>`).join('');
+
+  // Pricing breakdown
+  const travelDateVal = travelDateEl.value;
+  const [startY,startM,startD] = travelDateVal.split('-').map(Number);
+  const tourStart = new Date(startY,startM-1,startD);
+  const tourEnd = new Date(tourStart); tourEnd.setDate(tourEnd.getDate()+9);
+  let grandTotal = 0;
+  const pricingRows = travelers.map((t,i) => {
+    const dobVal = t.dob || data.dob;
+    const cat = classifyAge(dobVal, tourStart, tourEnd);
+    const rate = getCategoryRate(cat, standardRate);
+    const label = ((t.firstName||data.firstName)+' '+(t.lastName||data.lastName)).toUpperCase();
+    const catBadge = cat !== 'adult' ? ` <span style="font-size:0.65rem;background:#f0f4ff;color:#003e8f;padding:0.1rem 0.4rem;border-radius:0.3rem;font-weight:700;">${getCategoryLabel(cat)}</span>` : '';
+    grandTotal += rate;
+    return `<tr><td>${label}${catBadge}</td><td class="text-right">₱${rate.toLocaleString()}</td><td class="text-center">${i+1}</td><td class="text-right font-bold">₱${rate.toLocaleString()}</td></tr>`;
+  }).join('');
+  const totalRow = `<tr class="total-row"><td style="font-weight:900;">GRAND TOTAL</td><td></td><td class="text-center font-bold">${count} pax</td><td class="text-right" style="font-size:1rem;">₱${grandTotal.toLocaleString()}</td></tr>`;
+  document.getElementById('bcPricingTable').innerHTML = pricingRows + totalRow;
+
+  // Payment schedule
+  const scheduleTitle = document.getElementById('bcPaymentScheduleTitle');
+  const scheduleContent = document.getElementById('bcPaymentScheduleContent');
+  const perHead = grandTotal / count;
+  if (currentPayment === 'installment') {
+    const months = computeInstallmentMonths(travelDateVal);
+    const monthly = Math.ceil(perHead / months);
+    scheduleTitle.textContent = 'Payment Schedule — Monthly Installment';
+    let rows = '';
+    const startDate = new Date();
+    startDate.setDate(startDate.getDate()+1);
+    for (let m=0; m<months; m++) {
+      const d = new Date(startDate);
+      d.setMonth(d.getMonth()+m);
+      const dStr = d.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+      rows += `<tr><td style="text-align:center;">${m+1}</td><td>${m===0?'First Payment':'Monthly Installment'}</td><td>${dStr}</td><td class="text-right font-bold">₱${monthly.toLocaleString()}</td></tr>`;
+    }
+    rows += `<tr class="total-row"><td></td><td style="font-weight:900;">TOTAL</td><td>Fully paid 3 months before departure</td><td class="text-right" style="font-size:0.95rem;">₱${perHead.toLocaleString()} /head</td></tr>`;
+    scheduleContent.innerHTML = `<table class="bc-pricing-table"><thead><tr><th>#</th><th>Payment</th><th>Due Date</th><th style="text-align:right;">Amount (Per Head)</th></tr></thead><tbody>${rows}</tbody></table><p class="bc-vat-note" style="margin-top:0.75rem;">Note: Prompt payment ensures uninterrupted processing of your visa application and travel arrangements.</p>`;
+  } else if (currentPayment === 'downpayment') {
+    scheduleTitle.textContent = 'Payment Schedule — ₱50k Down Payment';
+    const balance = perHead - 50000;
+    const dueDate = new Date(tourStart); dueDate.setMonth(dueDate.getMonth()-3);
+    const dueDateStr = dueDate.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+    scheduleContent.innerHTML = `<table class="bc-pricing-table"><thead><tr><th>Payment</th><th>Amount</th><th>Due Date</th></tr></thead><tbody><tr><td>Down Payment</td><td class="font-bold">₱50,000</td><td>Upon reservation</td></tr><tr><td>Remaining Balance</td><td class="font-bold">₱${balance.toLocaleString()}</td><td>${dueDateStr}</td></tr><tr class="total-row"><td style="font-weight:900;">TOTAL</td><td>₱${perHead.toLocaleString()} /head</td><td>Fully paid 3 months before departure</td></tr></tbody></table><p class="bc-vat-note" style="margin-top:0.75rem;">Note: Prompt payment ensures uninterrupted processing of your visa application and travel arrangements.</p>`;
+  } else {
+    scheduleTitle.textContent = 'Payment Schedule — Full Cash';
+    scheduleContent.innerHTML = `<table class="bc-pricing-table"><thead><tr><th>Payment</th><th>Amount</th><th>Due Date</th></tr></thead><tbody><tr><td>Full Payment</td><td class="font-bold">₱${perHead.toLocaleString()}</td><td>Upon reservation</td></tr></tbody></table><p class="bc-vat-note" style="margin-top:0.75rem;">Note: Full payment secures your slot immediately.</p>`;
+  }
+
+  // Reset signature
+  clearSignature();
+  document.getElementById('bcAcceptTerms').checked = false;
+  document.getElementById('bcSubmitBtn').disabled = true;
+  document.getElementById('bcSubmitStatus').textContent = 'Please accept the terms and sign above to submit';
+  document.getElementById('bcSubmitStatus').className = 'bc-submit-status pending';
+  document.getElementById('bcPrintBtn').disabled = true;
+  document.getElementById('bcPrintBtn').style.opacity = '0.5';
+  document.getElementById('bcPrintBtn').style.cursor = 'not-allowed';
+
+  // Show confirmation page, hide main page
+  document.getElementById('main-page').style.display = 'none';
+  document.getElementById('booking-confirmation-page').style.display = 'block';
+  window.scrollTo(0,0);
+  // Initialize signature canvas after it's visible
+  setTimeout(initSignatureCanvas, 100);
+}
+
+function collectAllTravelers(data) {
+  const travelers = [{
+    firstName: data.firstName,
+    middleName: data.middleName,
+    lastName: data.lastName,
+    suffix: data.suffix,
+    gender: data.gender,
+    dob: data.dob,
+    contact: data.contactNo,
+    email: data.email
+  }];
+  // Additional travelers
+  const count = parseInt(document.getElementById('travelersCount').value) || 1;
+  for (let i=1; i<count && i<6; i++) {
+    const fn = document.querySelector(`.traveler-field[data-idx="${i}"][data-field="firstName"]`);
+    if (fn) {
+      travelers.push({
+        firstName: fn.value||'',
+        middleName: (document.querySelector(`.traveler-field[data-idx="${i}"][data-field="middleName"]`)||{}).value||'',
+        lastName: (document.querySelector(`.traveler-field[data-idx="${i}"][data-field="lastName"]`)||{}).value||'',
+        suffix: (document.querySelector(`.traveler-field[data-idx="${i}"][data-field="suffix"]`)||{}).value||'None',
+        gender: (document.querySelector(`.traveler-field[data-idx="${i}"][data-field="gender"]`)||{}).value||'',
+        dob: (document.querySelector(`.traveler-field[data-idx="${i}"][data-field="dob"]`)||{}).value||'',
+        contact: data.contactNo,
+        email: data.email
+      });
+    }
+  }
+  return travelers;
+}
+
+function formatDOB(dobStr) {
+  if (!dobStr) return '—';
+  const d = new Date(dobStr + 'T00:00:00');
+  return d.toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'});
+}
+
+function computeInstallmentMonths(travelDateVal) {
+  const [y,m,d] = travelDateVal.split('-').map(Number);
+  const tourStart = new Date(y,m-1,d);
+  const deadline = new Date(tourStart); deadline.setMonth(deadline.getMonth()-3);
+  const now = new Date();
+  let months = Math.round((deadline - now) / (1000*60*60*24*30.44));
+  if (months < 1) months = 1;
+  if (months > 24) months = 24;
+  return months;
+}
+
+function handleTermsCheck(cb) {
+  const hasSig = signatureHasContent();
+  const checked = cb.checked;
+  const submitBtn = document.getElementById('bcSubmitBtn');
+  const status = document.getElementById('bcSubmitStatus');
+  if (checked && hasSig) {
+    submitBtn.disabled = false;
+    status.textContent = '✓ Ready to submit';
+    status.className = 'bc-submit-status ready';
+  } else if (checked && !hasSig) {
+    submitBtn.disabled = true;
+    status.textContent = 'Please sign above to submit';
+    status.className = 'bc-submit-status pending';
+  } else {
+    submitBtn.disabled = true;
+    status.textContent = 'Please accept the terms and sign above to submit';
+    status.className = 'bc-submit-status pending';
+  }
+}
+
+function signatureHasContent() {
+  const canvas = document.getElementById('signatureCanvas');
+  if (!canvas) return false;
+  const ctx = canvas.getContext('2d');
+  const data = ctx.getImageData(0,0,canvas.width,canvas.height).data;
+  for (let i=3; i<data.length; i+=4) { if (data[i] > 0) return true; }
+  return false;
+}
+
+function clearSignature() {
+  const canvas = document.getElementById('signatureCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  document.getElementById('sigPlaceholder').style.display = 'block';
+  const cb = document.getElementById('bcAcceptTerms');
+  if (cb && !cb.checked) {
+    document.getElementById('bcSubmitBtn').disabled = true;
+    document.getElementById('bcSubmitStatus').textContent = 'Please accept the terms and sign above to submit';
+    document.getElementById('bcSubmitStatus').className = 'bc-submit-status pending';
+  }
+}
+
+function initSignatureCanvas() {
+  const canvas = document.getElementById('signatureCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  ctx.strokeStyle = '#1a2744';
+  ctx.lineWidth = 2;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  let drawing = false, lastX=0, lastY=0;
+  function getPos(e) {
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    if (e.touches) {
+      return [(e.touches[0].clientX - rect.left)*scaleX, (e.touches[0].clientY - rect.top)*scaleY];
+    }
+    return [(e.clientX - rect.left)*scaleX, (e.clientY - rect.top)*scaleY];
+  }
+  canvas.addEventListener('mousedown', e => { drawing=true; [lastX,lastY]=getPos(e); document.getElementById('sigPlaceholder').style.display='none'; });
+  canvas.addEventListener('mousemove', e => { if (!drawing) return; const [x,y]=getPos(e); ctx.beginPath(); ctx.moveTo(lastX,lastY); ctx.lineTo(x,y); ctx.stroke(); [lastX,lastY]=[x,y]; });
+  canvas.addEventListener('mouseup', () => { drawing=false; checkSignatureReady(); });
+  canvas.addEventListener('mouseleave', () => { drawing=false; });
+  canvas.addEventListener('touchstart', e => { e.preventDefault(); drawing=true; [lastX,lastY]=getPos(e); document.getElementById('sigPlaceholder').style.display='none'; }, {passive:false});
+  canvas.addEventListener('touchmove', e => { e.preventDefault(); if (!drawing) return; const [x,y]=getPos(e); ctx.beginPath(); ctx.moveTo(lastX,lastY); ctx.lineTo(x,y); ctx.stroke(); [lastX,lastY]=[x,y]; }, {passive:false});
+  canvas.addEventListener('touchend', () => { drawing=false; checkSignatureReady(); });
+}
+
+function checkSignatureReady() {
+  const cb = document.getElementById('bcAcceptTerms');
+  if (cb && cb.checked && signatureHasContent()) {
+    document.getElementById('bcSubmitBtn').disabled = false;
+    document.getElementById('bcSubmitStatus').textContent = '✓ Ready to submit';
+    document.getElementById('bcSubmitStatus').className = 'bc-submit-status ready';
+  }
+}
+
+function submitSignedConfirmation() {
+  const printBtn = document.getElementById('bcPrintBtn');
+  printBtn.disabled = false;
+  printBtn.style.opacity = '1';
+  printBtn.style.cursor = 'pointer';
+  document.getElementById('bcSubmitBtn').disabled = true;
+  document.getElementById('bcSubmitBtn').textContent = '✓ Confirmation Submitted';
+  document.getElementById('bcSubmitStatus').textContent = '✓ Your booking confirmation has been submitted successfully!';
+  document.getElementById('bcSubmitStatus').className = 'bc-submit-status ready';
+  showToast('Booking confirmation submitted! You may now print or save as PDF.');
+}
+
+function backToSalesPage() {
+  document.getElementById('booking-confirmation-page').style.display = 'none';
+  document.getElementById('main-page').style.display = 'block';
+  window.scrollTo(0,0);
+}
+
+function openDetailPopup(type) {
+  const content = {
+    inclusions: {
+      title: '✓ Package Inclusions',
+      color: '#16a34a',
+      bg: '#ecfdf5',
+      border: '#a7f3d0',
+      items: [
+        'Round-trip airfare (Manila–Paris, Rome–Manila)',
+        'Round-trip airport transfers',
+        'Airport terminal fee',
+        '1pc 20kg check-in luggage + 1pc personal bag',
+        '9 nights hotel accommodation (3-star)',
+        'Visit France, Switzerland, Italy & Vatican',
+        'Coach transfers all throughout the tour',
+        'Daily breakfast at the hotel',
+        'English-speaking tour guide',
+        'All city tours as per itinerary',
+      ]
+    },
+    exclusions: {
+      title: '✕ Package Exclusions',
+      color: '#dc2626',
+      bg: '#fef2f2',
+      border: '#fecaca',
+      items: [
+        'Lunch and Dinner (for more diversity and freedom of food choices)',
+        'Mandatory permits, city tax & compulsory tipping: EUR 525/head',
+        'Philippine Travel Tax: PHP 1,620/head',
+      ]
+    },
+    optionals: {
+      title: '◎ Optional Services',
+      color: '#003e8f',
+      bg: '#eff6ff',
+      border: '#bfdbfe',
+      items: [
+        'Visa assistance fee & appointment fee: PHP 20,000/pax',
+        'Travel Insurance: PHP 6,000/pax',
+        'Admission fees and Optional tours/activities',
+        'Hotel room upgrade (subject to availability)',
+        'Extra luggage allowance (airline rates apply)',
+      ]
+    }
+  };
+  const d = content[type];
+  if (!d) return;
+  document.getElementById('detailPopupContent').innerHTML = `
+    <h3 style="font-size:1.1rem;font-weight:800;color:${d.color};margin-bottom:1rem;font-family:'Playfair Display',serif;">${d.title}</h3>
+    <ul style="list-style:none;padding:0;margin:0;">${d.items.map(item=>`<li style="display:flex;align-items:flex-start;gap:0.5rem;padding:0.5rem 0;border-bottom:1px solid #f1f5f9;font-size:0.85rem;color:#374151;"><span style="color:${d.color};font-weight:700;flex-shrink:0;">•</span>${item}</li>`).join('')}</ul>
+    <button onclick="closeDetailPopup()" style="margin-top:1.5rem;width:100%;padding:0.75rem;background:${d.color};color:white;border:none;border-radius:0.5rem;font-weight:700;cursor:pointer;">Close</button>
+  `;
+  const overlay = document.getElementById('detailPopupOverlay');
+  overlay.style.display = 'flex';
+}
+
+function closeDetailPopup() {
+  document.getElementById('detailPopupOverlay').style.display = 'none';
 }
 
 function showToast(msg, type = 'success') {
@@ -1681,6 +2416,8 @@ function showToast(msg, type = 'success') {
 document.addEventListener('DOMContentLoaded', () => {
   initItinerary();
   recalculate();
+  // Signature canvas is initialized when booking confirmation is shown
+  // (initSignatureCanvas is called after the BC page becomes visible)
 });
 </script>
 </body>
