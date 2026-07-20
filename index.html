@@ -2365,8 +2365,10 @@ function generateBookingConfirmation(data) {
     notesSection.style.display = 'none';
   }
 
-  // Passenger table
-  const travelers = collectAllTravelers(data);
+  // Passenger table — use pre-built allTravelers from lastBookingData if available (handles agent review mode and ensures all travelers are included)
+  const travelers = (lastBookingData && lastBookingData.allTravelers && lastBookingData.allTravelers.length > 0)
+    ? lastBookingData.allTravelers
+    : collectAllTravelers(data);
   const passengerRows = travelers.map((t,i) => {
     const dobFormatted = t.dob ? formatDOB(t.dob) : (i===0 ? formatDOB(data.dob) : '—');
     return `<tr>
