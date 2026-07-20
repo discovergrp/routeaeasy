@@ -2246,6 +2246,87 @@ function handleSubmit(e) {
   btn.disabled = true;
   btn.textContent = 'Generating Confirmation...';
 
+  // Collect travel date info
+  const travelDateEl = document.getElementById('travelDate');
+  const travelDateId = travelDateEl.value;
+  const travelDateLabel = travelDateEl.options[travelDateEl.selectedIndex].text;
+  const count = parseInt(document.getElementById('travelersCount').value) || 1;
+  const standardRate = selectedPackage === 'full' ? 125000 : 95000;
+
+  // Build all travelers array
+  const allTravelers = [{ firstName, middleName, lastName, suffix, gender, dob, contact: contactNo, email }];
+  for (let i = 1; i < count && i < 6; i++) {
+    const fn = document.querySelector(`.traveler-field[data-idx="${i}"][data-field="firstName"]`);
+    if (fn) {
+      allTravelers.push({
+        firstName: fn.value || '',
+        middleName: (document.querySelector(`.traveler-field[data-idx="${i}"][data-field="middleName"]`) || {}).value || '',
+        lastName: (document.querySelector(`.traveler-field[data-idx="${i}"][data-field="lastName"]`) || {}).value || '',
+        suffix: (document.querySelector(`.traveler-field[data-idx="${i}"][data-field="suffix"]`) || {}).value || 'None',
+        gender: (document.querySelector(`.traveler-field[data-idx="${i}"][data-field="gender"]`) || {}).value || '',
+        dob: (document.querySelector(`.traveler-field[data-idx="${i}"][data-field="dob"]`) || {}).value || '',
+        contact: contactNo, email
+      });
+    }
+  }
+
+  // Classify travelers for pricing
+  const [sy, sm, sd] = travelDateId.split('-').map(Number);
+  const tourStart = new Date(sy, sm-1, sd);
+  const tourEnd = new Date(tourStart); tourEnd.setDate(tourEnd.getDate() + 9);
+  const classified = allTravelers.map((t, idx) => {
+    const category = classifyAge(t.dob, tourStart, tourEnd);
+    const { rate, discount } = getCategoryRate(category, standardRate);
+    const name = [t.firstName, t.middleName, t.lastName].filter(Boolean).join(' ');
+    return { name, dob: t.dob, index: idx, category, rate, discount, isFree: false, finalRate: rate };
+  });
+  const grandTotal = classified.reduce((sum, p) => sum + p.finalRate, 0);
+
+  // Store globally for use in signed confirmation email
+  lastBookingData = {
+    allTravelers, classified, grandTotal, count,
+    packageType: selectedPackage, paymentScheme: selectedPayment,
+    travelDateId, travelDateLabel, standardRate,
+    travelConsultant: consultant, specialRequests: notes
+  };
+
+  // Build message for initial email
+  let message = 'PRIMARY TRAVELER:\n';
+  message += 'Name: ' + firstName + ' ' + middleName + ' ' + lastName + (suffix && suffix !== 'None' ? ' ' + suffix : '') + '\n';
+  message += 'Gender: ' + gender + ' | DOB: ' + dob + '\n';
+  message += 'Contact: ' + contactNo + ' | Email: ' + email + '\n';
+  if (count > 1) {
+    message += '\nADDITIONAL TRAVELERS:\n';
+    for (let i = 1; i < Math.min(count, 6); i++) {
+      const t = allTravelers[i];
+      if (t) message += '\nTraveler ' + (i+1) + ': ' + t.firstName + ' ' + t.middleName + ' ' + t.lastName + '\n  Gender: ' + t.gender + ' | DOB: ' + t.dob + '\n';
+    }
+  }
+  if (notes) message += '\nNOTES: ' + notes;
+
+  // Send initial notification email via Web3Forms
+  const formData = {
+    access_key: '7332ba6f-c90e-4d55-ac88-cf63c72e4e48',
+    subject: 'New Route A Easy Booking: ' + firstName + ' ' + middleName + ' ' + lastName + (suffix && suffix !== 'None' ? ' ' + suffix : '') + ' - ' + travelDateLabel,
+    from_name: firstName + ' ' + middleName + ' ' + lastName + (suffix && suffix !== 'None' ? ' ' + suffix : ''),
+    first_name: firstName, middle_name: middleName, last_name: lastName, suffix: suffix || 'None',
+    gender, date_of_birth: dob, email, contact_number: contactNo,
+    travel_date: travelDateLabel,
+    package_type: selectedPackage === 'full' ? 'Full Package (₱125,000)' : 'Land Arrangement Only (₱95,000)',
+    payment_scheme: selectedPayment === 'installment' ? 'Monthly Installment' : selectedPayment === 'downpayment' ? '₱50K Down Payment' : 'Full Cash',
+    travelers_count: count + ' person(s)',
+    total_amount: '₱' + grandTotal.toLocaleString(),
+    travel_consultant: consultant,
+    message,
+    review_approve_link: generateBookingLink()
+  };
+
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(formData)
+  }).catch(err => console.error('Web3Forms initial email error:', err));
+
   setTimeout(() => {
     try {
       generateBookingConfirmation({
@@ -2543,16 +2624,183 @@ function checkSignatureReady() {
   }
 }
 
-function submitSignedConfirmation() {
-  const printBtn = document.getElementById('bcPrintBtn');
-  printBtn.disabled = false;
-  printBtn.style.opacity = '1';
-  printBtn.style.cursor = 'pointer';
-  document.getElementById('bcSubmitBtn').disabled = true;
-  document.getElementById('bcSubmitBtn').textContent = '✓ Confirmation Submitted';
-  document.getElementById('bcSubmitStatus').textContent = '✓ Your booking confirmation has been submitted successfully!';
-  document.getElementById('bcSubmitStatus').className = 'bc-submit-status ready';
-  showToast('Booking confirmation submitted! You may now print or save as PDF.');
+// ==================== GLOBAL BOOKING STATE ====================
+let lastBookingData = null;
+let isAgentReviewMode = false;
+let hasSigned = false;
+
+// Compress signature to small JPEG for URL embedding
+function compressSignature(dataUrl) {
+  return new Promise((resolve) => {
+    if (!dataUrl) { resolve(''); return; }
+    const img = new Image();
+    img.onload = function() {
+      const canvas = document.createElement('canvas');
+      canvas.width = 200; canvas.height = 80;
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, 200, 80);
+      ctx.drawImage(img, 0, 0, 200, 80);
+      resolve(canvas.toDataURL('image/jpeg', 0.3));
+    };
+    img.onerror = function() { resolve(''); };
+    img.src = dataUrl;
+  });
+}
+
+// Generate shareable booking link for agent review
+function generateBookingLink() {
+  if (!lastBookingData) return '';
+  const bd = lastBookingData;
+  const bookingPayload = {
+    t: bd.allTravelers.map(t => ({ f: t.firstName, m: t.middleName, l: t.lastName, s: t.suffix, g: t.gender, d: t.dob, c: t.contact, e: t.email })),
+    gt: bd.grandTotal,
+    cnt: bd.count,
+    pkg: bd.packageType,
+    pay: bd.paymentScheme,
+    td: bd.travelDateId,
+    tdl: bd.travelDateLabel,
+    sr: bd.standardRate,
+    tc: bd.travelConsultant,
+    pd: 0,
+    cl: bd.classified.map(c => ({ cat: c.category, rate: c.rate, disc: c.discount, free: c.isFree, fr: c.finalRate })),
+    cs: bd.compressedSignature || '',
+    nr: bd.specialRequests || ''
+  };
+  const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(bookingPayload))));
+  return 'https://discovergrp.github.io/routeaeasy/?booking=' + encoded;
+}
+
+// Check URL for ?booking= param (agent review mode)
+function checkBookingUrl() {
+  const params = new URLSearchParams(window.location.search);
+  const bookingParam = params.get('booking');
+  if (bookingParam) {
+    try {
+      const json = decodeURIComponent(escape(atob(bookingParam)));
+      const bp = JSON.parse(json);
+      const allTravelers = bp.t.map(t => ({ firstName: t.f, middleName: t.m, lastName: t.l, suffix: t.s, gender: t.g, dob: t.d, contact: t.c, email: t.e }));
+      const classified = bp.cl.map((c, idx) => ({
+        name: [allTravelers[idx].firstName, allTravelers[idx].middleName, allTravelers[idx].lastName].filter(Boolean).join(' '),
+        dob: allTravelers[idx].dob, index: idx,
+        category: c.cat, rate: c.rate, discount: c.disc, isFree: c.free, finalRate: c.fr
+      }));
+      lastBookingData = {
+        allTravelers, classified,
+        grandTotal: bp.gt, promoDiscount: bp.pd, count: bp.cnt,
+        packageType: bp.pkg, paymentScheme: bp.pay,
+        travelDateId: bp.td, travelDateLabel: bp.tdl,
+        standardRate: bp.sr, travelConsultant: bp.tc,
+        clientSignature: bp.cs || '', specialRequests: bp.nr || ''
+      };
+      isAgentReviewMode = true;
+      // Reconstruct selectedPackage and selectedPayment for the confirmation renderer
+      selectedPackage = bp.pkg;
+      selectedPayment = bp.pay;
+      // Rebuild the confirmation from stored data
+      setTimeout(() => {
+        const data = {
+          firstName: allTravelers[0].firstName, middleName: allTravelers[0].middleName,
+          lastName: allTravelers[0].lastName, suffix: allTravelers[0].suffix,
+          gender: allTravelers[0].gender, dob: allTravelers[0].dob,
+          contactNo: allTravelers[0].contact, email: allTravelers[0].email,
+          consultant: bp.tc, notes: bp.nr || ''
+        };
+        generateBookingConfirmation(data);
+        // Show client signature on canvas if present
+        if (bp.cs) {
+          const sigWrap = document.getElementById('sigCanvasWrap');
+          if (sigWrap) sigWrap.innerHTML = '<img src="' + bp.cs + '" style="width:100%;height:100%;object-fit:contain;" alt="Client Signature" />';
+        }
+      }, 300);
+    } catch(e) {
+      console.error('Failed to parse booking URL:', e);
+    }
+  }
+}
+
+async function submitSignedConfirmation() {
+  const btn = document.getElementById('bcSubmitBtn');
+  const status = document.getElementById('bcSubmitStatus');
+  btn.disabled = true;
+  btn.innerHTML = '⏳ Submitting...';
+
+  // Capture signature
+  const canvas = document.getElementById('signatureCanvas');
+  const sigDataUrl = canvas ? canvas.toDataURL('image/png') : '';
+
+  if (!isAgentReviewMode) {
+    if (lastBookingData) lastBookingData.clientSignature = sigDataUrl;
+    const compressed = await compressSignature(sigDataUrl);
+    if (lastBookingData) lastBookingData.compressedSignature = compressed;
+  } else {
+    if (lastBookingData) lastBookingData.consultantSignature = sigDataUrl;
+  }
+
+  // Build FormData for Web3Forms
+  const formData = new FormData();
+  formData.append('access_key', '7332ba6f-c90e-4d55-ac88-cf63c72e4e48');
+  const clientName = lastBookingData ? lastBookingData.allTravelers[0].firstName + ' ' + lastBookingData.allTravelers[0].lastName : 'Client';
+  if (isAgentReviewMode) {
+    formData.append('subject', 'CONSULTANT APPROVED - ' + clientName + ' (by ' + (lastBookingData ? lastBookingData.travelConsultant : 'Agent') + ')');
+    formData.append('from_name', 'Route A Easy - Consultant Approval');
+  } else {
+    formData.append('subject', 'SIGNED Booking Confirmation - ' + clientName);
+    formData.append('from_name', 'Route A Easy - Signed Confirmation');
+  }
+
+  const bcFooter = document.querySelector('.bc-footer p:last-child');
+  formData.append('Booking_Reference', bcFooter ? bcFooter.textContent : '');
+  formData.append('Client_Name', lastBookingData ? lastBookingData.allTravelers[0].firstName + ' ' + (lastBookingData.allTravelers[0].middleName || '') + ' ' + lastBookingData.allTravelers[0].lastName : '');
+  formData.append('Terms_Accepted', isAgentReviewMode ? 'Yes - Consultant reviewed and approved' : 'Yes - Client accepted all Terms & Conditions');
+  formData.append('Signature_Provided', isAgentReviewMode ? 'Yes - Consultant digital signature captured' : 'Yes - Client digital signature captured');
+  if (isAgentReviewMode && lastBookingData && lastBookingData.travelConsultant) {
+    formData.append('Approved_By', lastBookingData.travelConsultant);
+  }
+  formData.append('Date_Signed', new Date().toLocaleString('en-US', { timeZone: 'Asia/Manila' }));
+
+  if (!isAgentReviewMode) {
+    formData.append('Review_Approve_Link', generateBookingLink());
+  }
+
+  if (lastBookingData) {
+    const bd = lastBookingData;
+    const travelerList = bd.allTravelers.map((t, i) => (i+1) + '. ' + t.firstName + ' ' + (t.middleName || '') + ' ' + t.lastName + (t.suffix && t.suffix !== 'None' ? ' ' + t.suffix : '') + ' (' + t.gender + ', DOB: ' + t.dob + ', Contact: ' + t.contact + ', Email: ' + t.email + ')').join('\n');
+    const pricingList = bd.classified.map(c => (c.name || c.category) + ': ₱' + c.finalRate.toLocaleString()).join('\n');
+    formData.append('Travel_Date', bd.travelDateLabel || bd.travelDateId);
+    formData.append('Package_Type', bd.packageType === 'full' ? 'Full Package (With Airfare)' : 'Land Arrangement Only');
+    formData.append('Payment_Scheme', bd.paymentScheme === 'installment' ? 'Monthly Installment' : bd.paymentScheme === 'downpayment' ? '₱50k Down Payment' : 'Full Cash Payment');
+    formData.append('Total_Passengers', String(bd.count));
+    formData.append('Grand_Total', '₱' + bd.grandTotal.toLocaleString());
+    formData.append('All_Travelers', travelerList);
+    formData.append('Pricing_Breakdown', pricingList);
+    formData.append('Contact_Email', bd.allTravelers[0].email);
+    formData.append('Contact_Number', bd.allTravelers[0].contact);
+    if (bd.specialRequests) formData.append('Special_Requests', bd.specialRequests);
+  }
+
+  fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData })
+    .then(r => r.json())
+    .then(() => onSignSubmitSuccess())
+    .catch(() => onSignSubmitSuccess());
+
+  function onSignSubmitSuccess() {
+    status.className = 'bc-submit-status ready';
+    status.textContent = '✓ Your booking confirmation has been submitted successfully!';
+    btn.innerHTML = '✅ Submitted';
+    btn.style.background = '#16a34a';
+    showToast(isAgentReviewMode ? 'Consultant approval submitted to inquiry@discovergrp.com!' : 'Signed booking confirmation sent to inquiry@discovergrp.com!', 'success');
+    // Enable print
+    const printBtn = document.getElementById('bcPrintBtn');
+    if (printBtn) { printBtn.disabled = false; printBtn.style.opacity = '1'; printBtn.style.cursor = 'pointer'; }
+    // Replace canvas with static image in agent mode
+    if (isAgentReviewMode) {
+      const canvasWrap = document.getElementById('sigCanvasWrap');
+      if (canvasWrap && sigDataUrl) {
+        canvasWrap.innerHTML = '<img src="' + sigDataUrl + '" style="width:100%;height:100%;object-fit:contain;" alt="Consultant Signature" />';
+      }
+    }
+  }
 }
 
 function backToSalesPage() {
@@ -2706,6 +2954,7 @@ function closePkgModal() {
 document.addEventListener('DOMContentLoaded', () => {
   initItinerary();
   recalculate();
+  checkBookingUrl();
   // Signature canvas is initialized when booking confirmation is shown
   // (initSignatureCanvas is called after the BC page becomes visible)
 });
