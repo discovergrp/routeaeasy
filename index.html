@@ -2914,6 +2914,17 @@ async function submitSignedConfirmation() {
     if (bd.specialRequests) formData.append('Special_Requests', bd.specialRequests);
   }
 
+  // Attach client signature image if available
+  const clientSigDataUrl = (lastBookingData && lastBookingData.clientSignature) ? lastBookingData.clientSignature : sigDataUrl;
+  if (clientSigDataUrl && clientSigDataUrl.startsWith('data:image')) {
+    try {
+      const res = await fetch(clientSigDataUrl);
+      const blob = await res.blob();
+      const clientName2 = lastBookingData ? lastBookingData.allTravelers[0].firstName + '_' + lastBookingData.allTravelers[0].lastName : 'Client';
+      formData.append('attachment', blob, 'Client_Signature_' + clientName2 + '.png');
+    } catch(e) { console.warn('Could not attach client signature:', e); }
+  }
+
   fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData })
     .then(r => r.json())
     .then(() => onSignSubmitSuccess())
