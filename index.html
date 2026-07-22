@@ -2423,23 +2423,23 @@ function generateBookingConfirmation(data) {
   if (selectedPayment === 'downpayment') {
     scheduleTitle.textContent = 'Payment Schedule — ₱50k Down Payment';
     const balance = perHead - 50000;
-    const dueDate = new Date(tourStart); dueDate.setMonth(dueDate.getMonth()-3);
-    const dueDateStr = dueDate.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
-    scheduleContent.innerHTML = `<table class="bc-pricing-table"><thead><tr><th>Payment</th><th>Amount</th><th>Due Date</th></tr></thead><tbody><tr><td>Down Payment</td><td class="font-bold">₱50,000</td><td>Upon reservation</td></tr><tr><td>Remaining Balance</td><td class="font-bold">₱${balance.toLocaleString()}</td><td>${dueDateStr}</td></tr><tr class="total-row"><td style="font-weight:900;">TOTAL</td><td>₱${perHead.toLocaleString()} /head</td><td>Fully paid 3 months before departure</td></tr></tbody></table><p class="bc-vat-note" style="margin-top:0.75rem;">Note: Prompt payment ensures uninterrupted processing of your visa application and travel arrangements.</p>`;
+    scheduleContent.innerHTML = `<table class="bc-pricing-table"><thead><tr><th>Payment</th><th>Amount</th><th>Due Date</th></tr></thead><tbody><tr><td>Down Payment</td><td class="font-bold">₱50,000</td><td>Upon reservation</td></tr><tr><td>Remaining Balance</td><td class="font-bold">₱${balance.toLocaleString()}</td><td>Upon visa approval</td></tr><tr class="total-row"><td style="font-weight:900;">TOTAL</td><td>₱${perHead.toLocaleString()} /head</td><td>&nbsp;</td></tr></tbody></table><p class="bc-vat-note" style="margin-top:0.75rem;">Note: Prompt payment ensures uninterrupted processing of your visa application and travel arrangements.</p>`;
   } else {
     scheduleTitle.textContent = 'Payment Schedule — Full Cash';
     scheduleContent.innerHTML = `<table class="bc-pricing-table"><thead><tr><th>Payment</th><th>Amount</th><th>Due Date</th></tr></thead><tbody><tr><td>Full Payment</td><td class="font-bold">₱${perHead.toLocaleString()}</td><td>Upon reservation</td></tr></tbody></table><p class="bc-vat-note" style="margin-top:0.75rem;">Note: Full payment secures your slot immediately.</p>`;
   }
 
-  // Reset signature
-  clearSignature();
-  document.getElementById('bcAcceptTerms').checked = false;
-  document.getElementById('bcSubmitBtn').disabled = true;
-  document.getElementById('bcSubmitStatus').textContent = 'Please accept the terms and sign above to submit';
-  document.getElementById('bcSubmitStatus').className = 'bc-submit-status pending';
-  document.getElementById('bcPrintBtn').disabled = true;
-  document.getElementById('bcPrintBtn').style.opacity = '0.5';
-  document.getElementById('bcPrintBtn').style.cursor = 'not-allowed';
+  // Reset signature (skip in agent review mode — signature will be restored separately)
+  if (!isAgentReviewMode) {
+    clearSignature();
+    document.getElementById('bcAcceptTerms').checked = false;
+    document.getElementById('bcSubmitBtn').disabled = true;
+    document.getElementById('bcSubmitStatus').textContent = 'Please accept the terms and sign above to submit';
+    document.getElementById('bcSubmitStatus').className = 'bc-submit-status pending';
+    document.getElementById('bcPrintBtn').disabled = true;
+    document.getElementById('bcPrintBtn').style.opacity = '0.5';
+    document.getElementById('bcPrintBtn').style.cursor = 'not-allowed';
+  }
 
   // Show confirmation page, hide main page
   document.getElementById('main-page').style.display = 'none';
@@ -2662,7 +2662,7 @@ function checkBookingUrl() {
 
         // Restore client signature onto the canvas
         if (bp.cs) {
-          setTimeout(() => {
+          setTimeout(() => {  // 600ms: must run after initSignatureCanvas (100ms) to avoid canvas clear
             const canvas = document.getElementById('signatureCanvas');
             const placeholder = document.getElementById('sigPlaceholder');
             if (canvas && bp.cs) {
@@ -2710,7 +2710,7 @@ function checkBookingUrl() {
               };
               img.src = bp.cs;
             }
-          }, 400);
+          }, 600);
         }
       }, 300);
     } catch(e) {
