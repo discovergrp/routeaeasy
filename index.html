@@ -2797,55 +2797,71 @@ function checkBookingUrl() {
 
         // Restore client signature onto the canvas
         if (bp.cs) {
-          setTimeout(() => {  // 600ms: must run after initSignatureCanvas (100ms) to avoid canvas clear
+          // Use requestAnimationFrame after a delay to ensure layout is fully settled
+          // before drawing — canvas pixel buffer resets on resize/reflow
+          function restoreClientSignature() {
             const canvas = document.getElementById('signatureCanvas');
             const placeholder = document.getElementById('sigPlaceholder');
-            if (canvas && bp.cs) {
-              const ctx = canvas.getContext('2d');
-              const img = new Image();
-              img.onload = function() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                // Hide placeholder and Clear button since client already signed
-                if (placeholder) placeholder.style.display = 'none';
-                const clearBtn = document.querySelector('.bc-sig-clear');
-                if (clearBtn) { clearBtn.style.display = 'none'; }
-                // Add a "Client has signed" badge
-                const sigActions = document.querySelector('.bc-sig-actions');
-                if (sigActions && !document.getElementById('clientSignedBadge')) {
-                  const badge = document.createElement('div');
-                  badge.id = 'clientSignedBadge';
-                  badge.style.cssText = 'font-size:0.7rem;color:#16a34a;font-weight:700;margin-bottom:0.5rem;';
-                  badge.textContent = '✓ Client has signed this document';
-                  sigActions.appendChild(badge);
-                }
-                // Pre-check T&C and enable submit button
-                const cb = document.getElementById('bcAcceptTerms');
-                if (cb) cb.checked = true;
-                const submitBtn = document.getElementById('bcSubmitBtn');
-                if (submitBtn) {
-                  submitBtn.disabled = false;
-                  submitBtn.innerHTML = '✍️ Submit Consultant Approval';
-                }
-                const statusEl = document.getElementById('bcSubmitStatus');
-                if (statusEl) {
-                  statusEl.textContent = '✓ Client signature restored — Sign as consultant to approve';
-                  statusEl.className = 'bc-submit-status ready';
-                }
-              };
-              img.onerror = function() {
-                // Fallback: show as image overlay if canvas draw fails
-                const sigWrap = document.getElementById('sigCanvasWrap');
-                if (sigWrap) {
-                  const overlay = document.createElement('img');
-                  overlay.src = bp.cs;
-                  overlay.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none;';
-                  sigWrap.appendChild(overlay);
-                }
-              };
-              img.src = bp.cs;
+            const sigWrap = document.getElementById('sigCanvasWrap');
+            if (!canvas || !sigWrap) return;
+
+            // Remove any existing overlay to avoid duplicates
+            const existingOverlay = document.getElementById('clientSigOverlay');
+            if (existingOverlay) existingOverlay.remove();
+
+            // Strategy: use an absolutely-positioned img overlay on top of the canvas
+            // This is immune to canvas resets caused by CSS width:100% reflows
+            const overlay = document.createElement('img');
+            overlay.id = 'clientSigOverlay';
+            overlay.src = bp.cs;
+            overlay.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none;z-index:2;background:transparent;';
+            sigWrap.appendChild(overlay);
+
+            // Also draw onto canvas so toDataURL captures it for the email attachment
+            const ctx = canvas.getContext('2d');
+            const img = new Image();
+            img.onload = function() {
+              ctx.clearRect(0, 0, canvas.width, canvas.height);
+              ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            };
+            img.src = bp.cs;
+
+            // Hide placeholder and Clear button since client already signed
+            if (placeholder) placeholder.style.display = 'none';
+            const clearBtn = document.querySelector('.bc-sig-clear');
+            if (clearBtn) clearBtn.style.display = 'none';
+
+            // Add a "Client has signed" badge
+            const sigActions = document.querySelector('.bc-sig-actions');
+            if (sigActions && !document.getElementById('clientSignedBadge')) {
+              const badge = document.createElement('div');
+              badge.id = 'clientSignedBadge';
+              badge.style.cssText = 'font-size:0.7rem;color:#16a34a;font-weight:700;margin-bottom:0.5rem;';
+              badge.textContent = '✓ Client has signed this document';
+              sigActions.appendChild(badge);
             }
-          }, 600);
+
+            // Pre-check T&C and enable submit button
+            const cb = document.getElementById('bcAcceptTerms');
+            if (cb) cb.checked = true;
+            const submitBtn = document.getElementById('bcSubmitBtn');
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.innerHTML = '✍️ Submit Consultant Approval';
+            }
+            const statusEl = document.getElementById('bcSubmitStatus');
+            if (statusEl) {
+              statusEl.textContent = '✓ Client signature restored — Sign as consultant to approve';
+              statusEl.className = 'bc-submit-status ready';
+            }
+          }
+
+          // Run after layout settles: 300ms outer + rAF + 200ms inner
+          setTimeout(() => {
+            requestAnimationFrame(() => {
+              setTimeout(restoreClientSignature, 200);
+            });
+          }, 300);
         }
       }, 300);
     } catch(e) {
